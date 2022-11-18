@@ -811,6 +811,135 @@ namespace DC4._0Backend.Controllers
 
         [AcceptVerbs("GET", "POST")]
         [HttpPost]
+        public string ChangePayroll([FromBody]PayrollChange payrollChange)
+        {
+            String sSQL = "INSERT INTO PermanentPayrollMakita_webversion(" +
+            "UserID," +
+            "Salary," +
+            "OvertimeAllowed," +
+            "OrdinaryTime," +
+            "TimeAndHalf," +
+            "DoubleTime," +
+            "DoubleAndHalf," +
+            "SEffectiveDate," +
+            "SIneffectiveDate," +
+            "LeadingRate," +
+            "LeadingRateAllowed," +
+            "LREffectiveDate," +
+            "LRIneffectiveDate," +
+            "AfternoonAllowance," +
+            "AEffectiveDate," +
+            "AIneffectiveDate) VALUES(" +
+            "'" + payrollChange.UserID + "'," +
+            payrollChange.Salary + "," +
+            "'" + payrollChange.OvertimeAllowed + "'," +
+            payrollChange.OrdinaryTime+ "," +
+            payrollChange.TimeAndHalf+ "," +
+            payrollChange.DoubleTime+ "," +
+            payrollChange.DoubleTime+ "," +
+            "'" + payrollChange.SEffectiveDate.ToString("yyyy-MM-dd") + "'," +
+            "'" + payrollChange.SIneffectiveDate.ToString("yyyy-MM-dd") + "'," +
+            payrollChange.LeadingRate + "," +
+            "'" + payrollChange.LeadingRateAllowed + "'," +
+            "'" + payrollChange.LREffectiveDate.ToString("yyyy-MM-dd") + "'," +
+            "'" + payrollChange.LRIneffectiveDate.ToString("yyyy-MM-dd") + "'," +
+            "'" + payrollChange.AfternoonAllowance + "'," +
+            "'" + payrollChange.AEffectiveDate.ToString("yyyy-MM-dd") + "'," +
+            "'" + payrollChange.AIneffectiveDate.ToString("yyyy-MM-dd") + "')";
+
+
+            Connection conn = new Connection();
+
+
+            try
+            {
+                try
+                {
+                    Logging.WriteLog(payrollChange.Site, "Info", "UserDetails", "ChangePayroll", sSQL.Replace("'", "''"), 1006, payrollChange.DCMUser);
+                }
+                catch (Exception ex)
+                {
+
+                }
+                DataSet ds = conn.ReturnCompleteDataSet(sSQL, payrollChange.Site);
+
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    Logging.WriteLog(payrollChange.Site, "Error", "UserDetails", "ChangePayroll", sSQL.Replace("'", "''"), 3005, payrollChange.DCMUser);
+                }
+                catch (Exception e) { }
+
+                return "Error while Creating the Date Effective Payroll Entry" + ex.Message;
+            }
+
+            return "Date Effective Payroll Entry Created";    
+        }
+
+
+
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        public string GetPayroll([FromBody]PayrollChange payrollChange)
+        {
+            string result = "";
+            string sSQL = "SELECT TOP 1 * FROM PermanentPayrollMakita_webversion WHERE UserID = '" + payrollChange.UserID + "' ORDER BY AddDate DESC";
+            Connection connection = new Connection();
+            try
+            {
+                DataSet ds = connection.ReturnCompleteDataSet(sSQL, payrollChange.Site);
+                if(ds.Tables[0].Rows.Count != 1)
+                {
+                    return "";
+                }
+
+
+                DataRow row = ds.Tables[0].Rows[0];
+
+
+                PayrollChange obj = new PayrollChange();
+                obj.Salary = Double.Parse(row["Salary"].ToString());
+                obj.OvertimeAllowed = row["OvertimeAllowed"].ToString();
+                obj.OrdinaryTime = Double.Parse(row["OrdinaryTime"].ToString());
+                obj.TimeAndHalf = Double.Parse(row["TimeAndHalf"].ToString());
+                obj.DoubleTime = Double.Parse(row["DoubleTime"].ToString());
+                obj.DoubleAndHalf = Double.Parse(row["DoubleAndHalf"].ToString());
+                obj.SEffectiveDate = Convert.ToDateTime(row["SEffectiveDate"]);
+                obj.SIneffectiveDate = Convert.ToDateTime(row["SIneffectiveDate"]);
+                obj.LeadingRate = Double.Parse(row["LeadingRate"].ToString());
+                obj.LeadingRateAllowed = row["LeadingRateAllowed"].ToString();
+                obj.LREffectiveDate = Convert.ToDateTime(row["LREffectiveDate"]);
+                obj.LRIneffectiveDate = Convert.ToDateTime(row["LRIneffectiveDate"]);
+                obj.AfternoonAllowance = row["AfternoonAllowance"].ToString();
+                obj.AEffectiveDate = Convert.ToDateTime(row["AEffectiveDate"]);
+                obj.AIneffectiveDate = Convert.ToDateTime(row["AIneffectiveDate"]);
+                
+                result = JsonSerializer.Serialize(obj);
+
+
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    Logging.WriteLog(payrollChange.Site, "Error", "Modal", "GetPayroll", sSQL.Replace("'", "''"), 3004, payrollChange.DCMUser);
+                }
+                catch (Exception e) { }
+
+                return "Error while Fetching the Payroll Changes with error:" + ex.Message;
+            }
+
+            return result;
+        }
+
+
+
+
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
         public string AssignLeave([FromBody]AssignLeave leave)
         {
 

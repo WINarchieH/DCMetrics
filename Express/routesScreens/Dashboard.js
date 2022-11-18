@@ -852,36 +852,5 @@ router.post('/CCAPickDashboard/GetCCA_PickAccuracy_All_Weekly', (req, res) => {
         );
 });
 
-router.post('/TMADashboard/GetLinesPicked_PerUser_DayShift', (req, res) => {
-    let data = req.body;
-    api.dc4.post('/TMA/GetTMA_Picks_Weekly_DayShift', data).then(
-        response => {
-            let output = response.data;
-            res.send(output);   
-        }).catch(
-            err => {
-                res.status('503').send({
-                    message: 'Failed to connect to server.'});
-            }
-        );
-});
-
-
-router.post('/TMADashboard/GetLinesPicked_PerUser_AfternoonShift', (req, res) => {
-    let data = req.body;
-    api.dc4.post('/TMA/GetTMA_Picks_Weekly_afternoonShift', data).then(
-        response => {
-            let output = response.data;
-            res.send(output);   
-        }).catch(
-            err => {
-                res.status('503').send({
-                    message: 'Failed to connect to server.'});
-            }
-        );
-});
-
-
-
 
 module.exports = router;

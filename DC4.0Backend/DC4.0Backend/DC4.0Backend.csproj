@@ -224,17 +224,16 @@
     <Compile Include="Controllers\AgencyExportPayrollController.cs" />
     <Compile Include="Controllers\AisleMatrixController.cs" />
     <Compile Include="Controllers\Asics\CasualReverseBillingController.cs" />
-    <Compile Include="Controllers\BundyServiceCotroller.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\ChutePickReportController.cs" />
     <Compile Include="Controllers\Dashboard\CCAPickDashboardController.cs" />
     <Compile Include="Controllers\Dashboard\DashboardLosttimeController.cs" />
     <Compile Include="Controllers\Dashboard\DashboardProductivityController.cs" />
     <Compile Include="Controllers\Dashboard\DashboardTaskTimeController.cs" />
-    <Compile Include="Controllers\Dashboard\TMAController.cs" />
     <Compile Include="Controllers\ElitePayrollExportFileController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\EmailNotificationsController.cs" />
+    <Compile Include="Controllers\BundyServiceCotroller.cs" />
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\FeedBackController.cs" />
     <Compile Include="Controllers\HomeScreenDashboard\HomeScreenProductivityController.cs" />
@@ -298,7 +297,6 @@
     <Compile Include="Models\ActivtyStartEndTime.cs" />
     <Compile Include="Models\AisleMatrix.cs" />
     <Compile Include="Models\BasePublicHoliday.cs" />
-    <Compile Include="Models\BundyService.cs" />
     <Compile Include="Models\Calender.cs" />
     <Compile Include="Models\Connection.cs" />
     <Compile Include="Models\Crypto.cs" />
@@ -306,6 +304,7 @@
     <Compile Include="Models\customUserReport.cs" />
     <Compile Include="Models\DailyScanReport.cs" />
     <Compile Include="Models\Dashboards.cs" />
+    <Compile Include="Models\BundyService.cs" />
     <Compile Include="Models\Error.cs" />
     <Compile Include="Models\FeedBack.cs" />
     <Compile Include="Models\Graph.cs" />

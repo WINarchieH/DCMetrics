@@ -829,6 +829,37 @@ router.post('/UserInfo/AssignLeave', (req, res) => {
 });
 
 
+//Date effective payroll update
+router.post('/UserInfo/ChangePayroll', (req, res) => {
+    let data = req.body;
+    api.dc4.post('/UserInfo/ChangePayroll', data).then(
+        response => {
+            let output = response.data;
+            res.send(output);
+        }).catch(
+            err => {
+                res.status('503').send({
+                    message: 'Failed to connect to server.'
+                });
+            }
+        );
+});
+
+router.post('/UserInfo/GetPayroll', (req, res) => {
+    let data = req.body;
+    api.dc4.post('/UserInfo/GetPayroll', data).then(
+        response => {
+            let output = response.data;
+            res.send(output);
+        }).catch(
+            err => {
+                res.status('503').send({
+                    message: 'Failed to connect to server.'
+                });
+            }
+        );
+});
+
 
 //GetAllUserlist
 
@@ -1641,25 +1672,6 @@ router.post('/TransactionHistory/GetAllSelectedUserTransactionProd_RPFC', (req, 
             }
         );
 });
-
-router.post('/TransactionHistory/GetAllSelectedUserTransactionProd_Dubbo', (req, res) => {
-    let data = req.body;
-    api.dc4.post('/TransactionHistory/GetAllSelectedUserTransactionProd_Dubbo', data).then(
-        response => {
-            let output = response.data;
-
-            res.send(output);
-        }).catch(
-            err => {
-                res.status('503').send({
-                    message: 'Failed to connect to server.'
-                });
-            }
-        );
-});
-
-
-
 
 
 

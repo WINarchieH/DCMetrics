@@ -276,6 +276,8 @@ const TimeAttendanceGrid = () => {
         input.EndDate = inputToDate(userendDate);
         //check if log on is after log off
         
+        input.StartDate = inputToDate(userDate);
+        input.EndDate = inputToDate(userendDate);
         //check if log on is after log off
 
         if (input.EndDate < input.StartDate)
