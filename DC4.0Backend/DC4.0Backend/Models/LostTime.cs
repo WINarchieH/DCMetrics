@@ -24,13 +24,13 @@ namespace DC4._0Backend.Models
         public string ActualStart { get; set; }
         public string ActualEnd { get; set; }
 
-        public int StartLostTime { get; set; }
+        public string StartLostTime { get; set; }
 
         public string ExpectedEnd { get; set; }
 
-        public int EndLostTime { get; set; }
+        public string EndLostTime { get; set; }
 
-        public int Tolerance { get; set; }
+        public string Tolerance { get; set; }
 
         public string Site { get; set; }
 

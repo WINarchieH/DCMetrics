@@ -66,7 +66,6 @@ import CCARepDashboard from '../../pages/dashboard/CCA/Prodrepdashboard';
 import CCADailyPickDashboard from '../../pages/dashboard/CCA/DailyPickDashboard';
 import CCAWeeklyPickDashboard from '../../pages/dashboard/CCA/WeeklyPickDashboard';
 import CCAUserPickDashboard from '../../pages/dashboard/CCA/DailyPickUserDashboard';
-import TMAPickDashboard from '../../pages/dashboard/TMA/DailyPickDashboard';
 
 
 // Reports
@@ -78,7 +77,6 @@ import CostPerUnitreportPrint  from '../../pages/reports/ST/CostPerUnitReport/Co
 import LostTimeReports from '../../pages/reports/lostTime/LostTimeTable';
 import LostTimeReportPrint from '../../pages/reports/lostTime/lostTimePrint';
 import ProductivityPickReport from '../../pages/reports/productivityPick/productivityPickTable';
-import ProductivityPickReport_Dubbo from '../../pages/reports/productivityPick/productivityPickTable_Dubbo';
 import ProductivityPickReportPrint from '../../pages/reports/productivityPick/productivityPickPrint';
 import ProductivityPickReport_HR from '../../pages/reports/productivityPick/productivityPickTable_HR';
 import ProductivityPickReportPrint_HR from '../../pages/reports/productivityPick/productivityPickPrint_HR';
@@ -152,7 +150,7 @@ import CCAWeeklyPerformance from '../../pages/reports/weeklyPerformance/weeklyPe
 import CCATraineePick from '../../pages/reports/pickPerformance/TraineePickPerformance';
 
 //RpFC Productivity Pick Report
-import RPFCProdPickTable from '../../pages/reports/productivityPick/productivityPickTable_Dubbo';
+import RPFCProdPickTable from '../../pages/reports/productivityPick/productivityPickTable_OtherSites';
 
 
 //Current Resource Allocation
@@ -215,10 +213,6 @@ import TMACasualReverseBillingPrint from '../../pages/reports/TMAcasualReverseBi
 import ReasonCode from '../../pages/maintenance/codes/reasoncode';
 import UserGroupManagement from '../../pages/maintenance/userGroupManagement/userGroupManagement'
 import MakitaUserDetails from '../../pages/maintenance/userDetails/Makita/userDetails';
-
-// Assign Indirect 
-import AssignInidrectReport from '../../pages/reports/assignIndirect/assignIndirectReport';
-
 
 
 
@@ -300,9 +294,7 @@ const Routes = () => {
         <PrivateRoute path ='/DashBoard/CCADailyPickDashboard' name='Daily Pick Dashboard' exact component={CCADailyPickDashboard}></PrivateRoute>
         <PrivateRoute path ='/DashBoard/CCADailyPickUserDashboard' name='Daily User Pick Dashboard' exact component={CCAUserPickDashboard}></PrivateRoute>
  
-        {/** TMA Dasboard Menu */}
-      
-        <PrivateRoute path ='/DashBoard/TMAPickDashboard' name='Daily User Pick Dashboard' exact component={TMAPickDashboard}></PrivateRoute>
+
         {/** BenChMark Menu */}
 
         <PrivateRoute path='/Benchmark/OrderTimeMatrix' name='Order Time Matrix' exact component={OrderTimeMatrix}></PrivateRoute>
@@ -343,7 +335,6 @@ const Routes = () => {
         <PrivateRoute path='/Report/LostTimeReport' name='Lost Time' type='Report' exact component={LostTimeReports}></PrivateRoute>
         <PrivateRoute path='/Report/LostTimePrint' name='Lost Time Report Print' type='Report' exact component={LostTimeReportPrint}></PrivateRoute>
         <PrivateRoute path='/Report/ProductivityPickReport' name='Productivity Pick' type='Report' exact component={ProductivityPickReport}></PrivateRoute>
-        <PrivateRoute path='/Report/ProductivityPickReportDubbo' name='Productivity Pick' type='Report' exact component={ProductivityPickReport_Dubbo}></PrivateRoute>
         <PrivateRoute path='/Report/ProductivityPickPrint' name='Productivity Pick Report Print' type='Report' exact component={ProductivityPickReportPrint}></PrivateRoute>
         
         <PrivateRoute path='/Report/ProductivityPickReport_HR' name='Productivity Pick High Raise' type='Report' exact component={ProductivityPickReport_HR}></PrivateRoute>
@@ -409,7 +400,6 @@ const Routes = () => {
         <PrivateRoute path='/Report/CostPerUnitPrint' name='CostPerUnitPrint' type='Report' exact component={CostPerUnitreportPrint}></PrivateRoute>
         <PrivateRoute path='/Report/TMACasualReverseBilling' name='Casual Reverse Billing' type='Report' exact component={TMACasualReverseBillingPrint}></PrivateRoute>
         <PrivateRoute path='/Report/TMACostPerLinePrint' name='Cost Per Line' type='Report' exact component={TMACostPerUnitreport}></PrivateRoute>
-        <PrivateRoute path='/Report/AssignIndirectReport' name='Assign Indirect' type='Report' exact component={AssignInidrectReport}></PrivateRoute>
         {/** Makita Specific Reports */}
 
         <PrivateRoute path='/Report/PermanentPayrollReport' name='Permanent Payroll Report' type='Report' exact component={PermanentPayrollPrint}></PrivateRoute>

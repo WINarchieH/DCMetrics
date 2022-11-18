@@ -40,7 +40,29 @@ namespace DC4._0Backend.Models
         public string PayCode { get; set; }
     }
 
+    public class PayrollChange
+    {
+        public string UserID { get; set; }
+        public double Salary { get; set; }
+        public double OrdinaryTime { get; set; }
+        public double TimeAndHalf { get; set; }
+        public double DoubleTime { get; set; }
+        public double DoubleAndHalf { get; set; }
+        public DateTime SEffectiveDate { get; set; }
+        public DateTime SIneffectiveDate { get; set; }
+        public double LeadingRate { get; set; }
+        public string LeadingRateAllowed { get; set; }
+        public DateTime LREffectiveDate { get; set; }
+        public DateTime LRIneffectiveDate { get; set; }
+        public string AfternoonAllowance { get; set; }
 
+        public DateTime AEffectiveDate { get; set; }
+        public DateTime AIneffectiveDate { get; set; }
+        public string OvertimeAllowed { get; set; }
+        public string DCMUser { get; set; }
+        public string Site { get; set; }
+
+    }
 
     public class UserDiary
     {

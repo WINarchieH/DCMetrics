@@ -47,6 +47,7 @@ import assignleaveicon  from '../../../../components/icons/Assign_Leave.png';
 //drag and Drop
 
 import { FileDrop } from 'react-file-drop';
+import { breakpoints } from '@mui/system';
 
 
 const useToolbarStyles = makeStyles(theme => ({
@@ -349,12 +350,51 @@ const UserDetails =  () => {
 
     };
 
-    const payrollChangesButtonHandler = (data) => {
-
+    const payrollChangesButtonHandler = async (data) => {
+        
         payrollchangesinput.UserID = data.UserID;
         setShowPayrollModal('');
+
+        let body = new URLSearchParams({
+            'UserID': payrollchangesinput.UserID 
+        });
+
+        await api.post('/Maintenance/UserInfo/GetPayroll', body).then(
+            res => {
+                let data = res.data;
+
+                if(data == "") {
+                    setpayrollchangesinput(defaultpayrollChangesInput);
+                }
+                else {
+                    //Patch where data isn't properly picking up
+                    data.PaidOvertime = data.OvertimeAllowed;
+                    data.LeadingHand = data.LeadingRateAllowed;
+                    data.LeadingHandRate = data.LeadingRate;
+                    setpayrollchangesinput(data);
+                    //Dates are taken from global variables not payrollChangesInput so update manually
+                    setSalaryToDate(dateToInput(inputToDate(data.SIneffectiveDate.substring(0, 10))));
+                    setSalaryFromDate(dateToInput(inputToDate(data.SEffectiveDate.substring(0, 10))));
+                    setafternoonFromDate(dateToInput(inputToDate(data.AEffectiveDate.substring(0, 10))));
+                    setafternoonToDate(dateToInput(inputToDate(data.AIneffectiveDate.substring(0, 10))));
+                    setLeadingHandFromDate(dateToInput(inputToDate(data.LREffectiveDate.substring(0, 10))));
+                    setLeadingHandToDate(dateToInput(inputToDate(data.LRIneffectiveDate.substring(0, 10))));
+                }
+            }).catch(
+                err => {
+                    setpayrollchangesinput(defaultpayrollChangesInput);
+                    // TODO: Error handling
+                    if (err.response) {
+                        console.log(err.response)
+                    }
+                    else {
+                    }
+                }
+            );
+
+
         setShowPayrollModal(true);
-        setpayrollchangesinput(defaultpayrollChangesInput);
+        // setpayrollchangesinput(defaultpayrollChangesInput);
 
 
     };
@@ -787,14 +827,13 @@ const UserDetails =  () => {
         }
 
         let body = new URLSearchParams({
-
-               'FromDate': leaveStartDate,
-               'ToDate':leaveEndDate,
+               'EffectiveDate': leaveStartDate,
+               'IneffectiveDate':leaveEndDate,
                'UpdateBy':user,
                'StartTime':leaveInput.LeaveStartTime,
                'EndTime':leaveInput.LeaveEndTime,
                'LeaveDesc':leaveInput.LeaveType,
-                'LessThanOneDay':leaveInput.LessThanOneDay,
+               'LessThanOneDay':leaveInput.LessThanOneDay,
                'UserID':leaveInput.UserID,
                'DCMUser': user,
                'EmployeeCategory': leaveInput.EmployeeCategory
@@ -818,6 +857,127 @@ const UserDetails =  () => {
                     setleaveModalMessage(response);
                 }
                 setShowLeaveModal(true);
+            }
+        ).catch(
+            err => { // TODO: Error handling
+                console.log(err);
+            }
+        );
+    };
+
+    const clickPayrollChanges =  (event)=>{
+        event.preventDefault();
+        
+        /*
+        prevent negatives
+        */
+        if(payrollchangesinput.OrdinaryTime < 0) {
+            setpayrollchangesModalMessageError(`Error: Single time cannot be negative`);
+            setShowPayrollModal(true);
+            return;
+        }
+
+        if(payrollchangesinput.TimeAndHalf < 0) {
+            setpayrollchangesModalMessageError(`Error: Time and half cannot be negative`);
+            setShowPayrollModal(true);
+            return;
+        }
+
+        if(payrollchangesinput.DoubleTime < 0) {
+            setpayrollchangesModalMessageError(`Error: Double time cannot be negative`);
+            setShowPayrollModal(true);
+            return;
+        }
+
+        /*
+        Date Section
+        1 - Salary
+        2 - Leading Hand
+        3 - Afternoon allowance
+        */
+        if(
+            dateToDateObj(SalaryFromDate) > dateToDateObj(SalaryToDate) 
+        ) {
+            setpayrollchangesModalMessageError(`Error: Salary 'from' date must come before 'to' date`);
+            setShowPayrollModal(true);
+            return;
+        }
+        
+        if(
+            dateToDateObj(LeadingHandFromDate) > dateToDateObj(LeadingHandToDate)
+        ) {
+            setpayrollchangesModalMessageError(`Error: Leading hand 'from' date must come before 'to' date`);
+            setShowPayrollModal(true);
+            return;
+        }
+
+        
+        if(
+            dateToDateObj(afternoonFromDate) > dateToDateObj(afternoonToDate)
+        ) {
+            setpayrollchangesModalMessageError(`Error: Leading hand 'from' date must come before 'to' date`);
+            setShowPayrollModal(true);
+            return;
+        }
+
+        var payrollLeadingHand = "";
+        if(payrollchangesinput.LeadingHand == null|| payrollchangesinput.LeadingHand == "") {
+            payrollLeadingHand = "N";
+        }
+        else {
+            payrollLeadingHand = payrollchangesinput.LeadingHand;
+        }
+
+        var payrollOvertime = "";
+        if(payrollchangesinput.PaidOvertime == null || payrollchangesinput.PaidOvertime == "") {
+            payrollOvertime = "N";
+        }
+        else {
+            payrollOvertime = payrollchangesinput.PaidOvertime;
+        }
+
+        var payrollAfternoonAllowed = "";
+        if(payrollchangesinput.AfternoonAllowance == null|| payrollchangesinput.AfternoonAllowance == "") {
+            payrollAfternoonAllowed = "N";
+        }
+        else {
+            payrollAfternoonAllowed = payrollchangesinput.AfternoonAllowance;
+        }
+
+        let body = new URLSearchParams({
+               'UserID': payrollchangesinput.UserID,
+               'Salary':payrollchangesinput.Salary,
+               'OvertimeAllowed': payrollOvertime,
+               'OrdinaryTime':payrollchangesinput.OrdinaryTime,
+               'TimeAndHalf':payrollchangesinput.TimeAndHalf,
+               'DoubleTime':payrollchangesinput.DoubleTime,
+               'DoubleAndHalf':payrollchangesinput.DoubleAndHalf,
+               'SEffectiveDate':SalaryFromDate,
+               'SIneffectiveDate':SalaryToDate,
+               'LeadingRate':payrollchangesinput.LeadingHandRate,
+               'LeadingRateAllowed':payrollLeadingHand,
+               'LREffectiveDate':LeadingHandFromDate,
+               'LRIneffectiveDate':LeadingHandToDate,
+               'AfternoonAllowance':payrollAfternoonAllowed,
+               'AEffectiveDate':afternoonFromDate,
+               'AIneffectiveDate':afternoonToDate,
+               'DCMUser': user
+        });
+        
+        api.post('Maintenance/UserInfo/ChangePayroll', body).then( 
+            res => {
+                let response = res.data;
+             
+                if (response.includes('Created')) 
+                {
+                    setpayrollchangesModalMessageError('');
+                    setShowPayrollModal(false);
+                }
+                
+                else {
+                    setpayrollchangesModalMessageError(response);
+                    setShowPayrollModal(true);
+                }
             }
         ).catch(
             err => { // TODO: Error handling
@@ -1211,14 +1371,14 @@ const UserDetails =  () => {
                             <div className='modal-grouping--col-2'>
                                 <DropDown name='LeaveType' label='Leave Type' options={leaveInput.EmployeeCategory === 'Casual' ? dropdownData['Casual Leave Type'] : dropdownData['Permanent Leave Type']} defaultValue={leaveInput.LeaveType} onChange={handleLeaveInputEvent} required></DropDown>
                                 <Toggle label='Less Than One Day' checked={outputToBoolean(leaveInput.LessThanOneDay)} onChange={leaveDayHandler} ></Toggle>
-                                 <TextField name='LeaveStartDate' label='Leave Start Date'  value ={leaveStartDate} onChange={ChangeLeaveStartDate} required type='date'></TextField>
+                                <TextField  name='LeaveStartDate' label='Leave Start Date'  value ={leaveStartDate} onChange={ChangeLeaveStartDate} required type='date'></TextField>
                                 <TextField name='LeaveStartTime' label='Start Time' disabled={leaveInput.LessThanOneDay === 'Y' ? null : true} value={leaveInput.LeaveStartTime} onChange={handleLeaveInputEvent} type='time' required ={leaveInput.LessThanOneDay === 'Y' ? true : null} ></TextField>
                                 <TextField name='LeaveEndDate' label='End Date' value={leaveEndDate} onChange={ChangeLeaveEndDate} required type='date' disabled={leaveInput.LessThanOneDay === 'Y' ? true : null}></TextField>
                                 <TextField name='LeaveEndTime' label='End Time' value={leaveInput.LeaveEndTime} onChange={handleLeaveInputEvent} type='time'  disabled={leaveInput.LessThanOneDay === 'Y' ? null : true} required ={leaveInput.LessThanOneDay === 'Y' ? true : null} ></TextField>
                             </div>
                         </Modal>
                         {/* Model for Payroll Changes */}
-                        <Modal title='Payroll Changes' buttonName='Save'  onSubmit={clickAssignLeave}  unrestrictWidth={true} showModal={showPayrollModal} setShowModal={setShowPayrollModal}
+                        <Modal title='Payroll Changes' buttonName='Save'  onSubmit={clickPayrollChanges}  unrestrictWidth={true} showModal={showPayrollModal} setShowModal={setShowPayrollModal}
                           message={payrollModalMessage} messageError={payrollchangesMessageError}>
                         
                             <div className='modal-grouping--col-5'>
@@ -1226,14 +1386,14 @@ const UserDetails =  () => {
                             <div className='modal-item'>
                             <label className='label label--position'>Salary</label>
                             </div>
-                            <TextField name='Salary' label='Annual' value={payrollchangesinput.Salary} onChange={handlePayrollchangesInputEvent}  restrictions='number' required></TextField>
-                            <TextField name='OrdinaryTime' label='Single Time' value={payrollchangesinput.OrdinaryTime} onChange={handlePayrollchangesInputEvent} restrictions='number' required></TextField>
-                            <TextField name='TimeAndHalf' label='Time And Half' value={payrollchangesinput.TimeAndHalf} onChange={handlePayrollchangesInputEvent}  restrictions='number' required></TextField>
-                            <TextField name='DoubleTime' label='Double Time' value={payrollchangesinput.DoubleTime} onChange={handlePayrollchangesInputEvent} restrictions='number' required></TextField>
+                            <TextField min='0' type="number" name='Salary' label='Annual' value={payrollchangesinput.Salary} onChange={handlePayrollchangesInputEvent}  restrictions='number' required></TextField>
+                            <TextField type="number" name='OrdinaryTime' label='Single Time' value={payrollchangesinput.OrdinaryTime} onChange={handlePayrollchangesInputEvent} restrictions='number' required></TextField>
+                            <TextField type="number" name='TimeAndHalf' label='Time And Half' value={payrollchangesinput.TimeAndHalf} onChange={handlePayrollchangesInputEvent}  restrictions='number' required></TextField>
+                            <TextField type="number" name='DoubleTime' label='Double Time' value={payrollchangesinput.DoubleTime} onChange={handlePayrollchangesInputEvent} restrictions='number' required></TextField>
                             <div></div>
                             <div className='modal-item'>
                             <label className='label label--position' >Effective From</label>
-                            <input  className="modal-fields modal-fields--outline modal-fields--date" type="date" value ={SalaryFromDate} onChange={ChangeSalaryfromDate} ></input>
+                            <input   className="modal-fields modal-fields--outline modal-fields--date" type="date" value ={SalaryFromDate} onChange={ChangeSalaryfromDate} ></input>
                             </div>
                             <div className='modal-item'>
                             <label className='label label--position' >Effective To</label>
@@ -1247,7 +1407,7 @@ const UserDetails =  () => {
                             </div>
 
                             <Toggle label='Allowed' checked={outputToBoolean(payrollchangesinput.LeadingHand)} onChange={leadingHandHandler}></Toggle>
-                            <TextField name='LeadingHandRate' label='Rate' value={payrollchangesinput.LeadingHandRate} onChange={handlePayrollchangesInputEvent} restrictions='number' required></TextField>
+                            <TextField type="number" name='LeadingHandRate' label='Rate' value={payrollchangesinput.LeadingHandRate} onChange={handlePayrollchangesInputEvent} restrictions='number' required></TextField>
                             
                             <div className='modal-item'>
                             <label className='label label--position' >Effective From</label>

@@ -28,10 +28,8 @@ const firstDay = lastDay - 6; // last day is the first day + 6
 const last = new Date(curr.setDate(lastDay)).toDateString();
 const first = new Date(curr.setDate(firstDay)).toDateString();
 
-
-
 const todate = new Date(curr.setDate(lastDay)).toDateString();
-const fromdate = new Date(curr.setDate(curr.getDate() - 7)).toDateString();
+const fromdate = new Date(curr.setDate(firstDay)).toDateString();
 
 
 

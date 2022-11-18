@@ -20,10 +20,10 @@ import api from '../../../components/api/api';
 
 const curr = new Date() ; // get current date
 const lastDay = curr.getDate()-1 ; // First day is the day of the month - the day of the week
-const firstDay = curr.getDate() - 7; // last day is the first day + 6
+const firstDay = lastDay - 6; // last day is the first day + 6
 
 const last = new Date(curr.setDate(lastDay)).toDateString();
-const first = new Date(curr.setDate(curr.getDate() - 7)).toDateString();
+const first = new Date(curr.setDate(firstDay)).toDateString();
 
 
 class ProductivityPickGraph extends React.Component {
@@ -158,8 +158,6 @@ class ProductivityPickGraph extends React.Component {
              'Site':currentsite
           });
   
-
-          console.log(this.state);
           
        
            api.post('/HomeScreen/HomeScreenProductivity/Dash_PickandPut_Productivity',body).then(

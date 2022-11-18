@@ -110,7 +110,7 @@ class PickProd extends React.Component {
                    temp =   resdata.Dataset;
                    var Dataset = temp.map(x=>x);
      
-                
+                   console.log(Dataset);
                   
 
                     var COLORS = [];

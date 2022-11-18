@@ -482,27 +482,4 @@ namespace DC4._0Backend.Models
 
         public string EndDate { get; set; }
     }
-
-    public class Dash_Pick_Lines
-    {
-
-       
-
-        public string Site { get; set; }
-
-        public string[] DayShift_users { get; set; }
-
-        public int[] DayShift_lines { get; set; }
-        public int[] DayShift_KPI { get; set; }
-
-        public string[] AfternoonShift_users { get; set; }
-
-        public int[] AfternoonShift_lines { get; set; }
-
-        public int[] AfternoonShift_KPI { get; set; }
-
-        public string StartDate { get; set; }
-
-        public string EndDate { get; set; }
-    }
 }

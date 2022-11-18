@@ -366,29 +366,13 @@ const TimeAttendanceElite = () => {
     const addHandler = () => { // TODO: Add event handler
 
         input.StartDate = inputToDate(userDate);
-        input.EndDate = inputToDate(userendDate);
+       input.EndDate = inputToDate(userendDate);
         //check if log on is after log off
-    
-
-        if (input.EndDate < input.StartDate)
-        {
-            setModalMessageError('Error: Start Date cannot be greater than End Date !');
-            setLoadModal(false);
-            return;
-
-        }
-
-         
-         if (input.EndTime!= '')
-         {
-
-           if (isStartDateTimeSmallerThanEndDateTime(input.StartDate, input.StartTime, input.EndDate, input.EndTime) === false) {
+        if (isStartDateTimeSmallerThanEndDateTime(input.StartDate, input.StartTime, input.EndDate, input.EndTime) === false) {
             setModalMessageError('Error: Log on time cannot be greater than log off time!');
             setLoadModal(false);
             return;
-           }
-          }
-
+        }
         input.UpdateBy = user;
 
         if (input.MealAllowance ==='Y')

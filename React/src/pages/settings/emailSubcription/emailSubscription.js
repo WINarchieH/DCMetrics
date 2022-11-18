@@ -61,7 +61,7 @@ const defaultInput = {
 };
 
 const tableColumns = [
-  {Header: 'Serial ID', accessor: 'SerialID', filter: 'text'}, 
+ 
   {Header: 'Report', accessor: 'ReportName',  filter: 'text', modalType: 'textbox'}, 
   {Header: 'Email', accessor: 'Email',  filter: 'text', modalType: 'textbox'},
   {Header: 'Scheduled Time', accessor: 'ScheduledTime', filter: 'text', modalType: 'textbox'},
