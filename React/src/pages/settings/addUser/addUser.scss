@@ -1,0 +1,52 @@
+@import '../../../assets/modal';
+
+.items-set-password {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    max-width: 250px;
+    margin: auto;
+}
+
+.items-title {
+    margin: 0px 0px;
+    font-size: 20px;
+}
+
+.container
+{
+    margin-left: 30%;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    width:310px;
+  
+}
+
+.form-item input, .container button {
+    height: 35px;
+    border-radius: 25px;
+    outline: none;
+}
+
+.ErrorMessage-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.error-message.error-message {
+    max-width: 312px;
+    margin: 21.6px 10px 0px 10px;
+    color: $error-colour;
+}
+

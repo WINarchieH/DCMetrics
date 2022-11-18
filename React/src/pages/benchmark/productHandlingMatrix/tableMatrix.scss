@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+$column-gap:  0px;
+$row-gap: 0px;
+$background-light: #FFFFFF;
+$background-dark: rgba(0, 0, 0, 0.04);
+$table-header-color: rgb(188,230,247);
+$table-header-color-tl: rgb(35,168,224);
+
+.table-container--center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.table-header {
+    font-size: 24px;
+    padding: 0px 15px 15px 15px;
+    font-family: Montserrat;
+    color:rgb(35,168,224)
+}
+
+.table-toolbar {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+}
+
+.table-toolbar--right.table-toolbar--right {
+    position: absolute;
+    right: 20px;
+    bottom: 0px;
+}
+
+.toolbar-item {
+    position: relative;
+    max-width: 150px;
+    padding: 0px 15px;
+}
+
+.product-handle-search--position {
+    position: absolute;
+    bottom: 0px;
+    border-radius: 0px;
+}
+
+.product-handle-button--width {
+    width: 100px;
+    border-radius: 0px;
+}
+
+.table-matrix-cell--padding {
+    padding: 0px 5px;
+}
+
+.table-matrix--container {
+    display: grid;
+    grid-template-columns: 90px 1fr $column-gap 1fr $column-gap 1fr $column-gap 1fr;
+    grid-template-rows: 50px 1fr $row-gap 1fr $row-gap 1fr $row-gap 1fr;
+    width: 100%;
+    height: 75vh;
+}
+
+.table-matrix-data--container {
+    display: grid;
+    // column-gap: $column-gap;
+    // row-gap: $row-gap;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+
+    grid-column: 2 / span 8;
+    grid-row: 2 / span 8;
+}
+
+.table-matrix-cell--container {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr;
+    grid-template-rows: 20px 1fr 1fr;
+    padding-top: 5px;
+}
+
+.table-matrix-cell--center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 17px;
+    
+}
+
+.table-cell--column-pos {
+    position: relative;
+    width: 60px;
+    left: -30px;
+    padding-top: 5px;
+}
+
+.table-cell--col-pos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+}
+
+.table-cell--row-pos {
+    position: relative;
+    bottom: 16px;
+    padding: 0px 12px;
+}
+ 
+.table-cell--column-pos input, .table-cell--row-pos input {
+    text-align: center;
+}
+
+.table-row--light {
+    background-color: $background-light;
+}
+
+.table-row--dark {
+    background-color: $background-dark;
+}
+
+// .table-matrix-cell--border {
+//     border: 1px solid #000000;
+// }
+
+.table-matrix-cell--container-without-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+
+.table-cell--center-vertical {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.table-cell-label {
+    font-weight: bold;
+    background-color: $table-header-color;
+}
+
+.table-cell-label-tl {
+    font-weight: bold;
+    background-color: $table-header-color-tl;
+}
+
+.table-cell--row-name-1 {
+    grid-column: 1 / span 1;
+    grid-row: 2 / span 1;
+}
+
+.table-cell--row-name-2 {
+    grid-column: 1 / span 1;
+    grid-row: 4 / span 1;
+}
+
+.table-cell--row-name-3 {
+    grid-column: 1 / span 1;
+    grid-row: 6 / span 1;
+}
+
+.table-cell--row-name-4 {
+    grid-column: 1 / span 1;
+    grid-row: 8 / span 1;
+}
+
+.table-cell--col-name-1 {
+    grid-column: 2 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.table-cell--col-name-2 {
+    grid-column: 4 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.table-cell--col-name-3 {
+    grid-column: 6 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.table-cell--col-name-4 {
+    grid-column: 8 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.table-cell--vol-input-1 {
+    grid-column: 3 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.table-cell--vol-input-2 {
+    grid-column: 5 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.table-cell--vol-input-3 {
+    grid-column: 7 / span 1;
+    grid-row: 1 / span 1;
+}
+
+.table-cell--wgt-input-1 {
+    grid-column: 1 / span 1;
+    grid-row: 3 / span 1;
+}
+
+.table-cell--wgt-input-2 {
+    grid-column: 1 / span 1;
+    grid-row: 5 / span 1;
+}
+
+.table-cell--wgt-input-3 {
+    grid-column: 1 / span 1;
+    grid-row: 7 / span 1;
+}

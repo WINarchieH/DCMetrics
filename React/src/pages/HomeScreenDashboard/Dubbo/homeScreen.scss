@@ -1,0 +1,32 @@
+@import '../../../assets/master';
+
+.dashboard-container {
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px 15px;
+    margin: 10px 15px;
+}
+
+.links-card {
+    border-radius: 15px;
+    background-color:rgb(212, 239, 255);
+    padding: 20px;
+}
+
+.links-title {
+    font-size: 24px;
+    font-weight: bold;
+    color:black;
+    margin-bottom: 10px;
+    font-family:'Calibri';
+}
+
+.links-item {
+    color:black;
+    font-size:18px;
+    
+}
+.links-item:hover {
+    color:blue;
+}

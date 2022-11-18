@@ -1,0 +1,109 @@
+ @import './master';
+// File contains main positioning and sizing for modal components
+$modal-column-gaps: 20px;
+
+.modal-grouping--col-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+    column-gap: $modal-column-gaps;
+}
+
+.modal-grouping--col-4 {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+    column-gap: $modal-column-gaps;
+}
+
+.modal-grouping--col-5 {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(150px, 1fr));
+    column-gap: $modal-column-gaps;
+}
+
+.modal-grouping--col-8 {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(150px, 1fr));
+    column-gap: $modal-column-gaps;
+}
+
+
+.modal-grouping--col-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+    column-gap: $modal-column-gaps;
+}
+
+.modal-fields { 
+    padding: 5px;
+    font-size: 13px;
+    margin-top: 2.5px;
+    outline: none;
+}
+
+.modal-fields--center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-fields--outline {
+    border: 1.5px solid $input-outline-colour;
+    border-radius: 5px;
+    font-family: $font-family;
+}
+
+.modal-item {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: $font-family;
+}
+
+
+.UserListDropDown  {
+    padding: 5px;
+    font-size: 13px;
+    margin-top: 2.5px;
+    outline: none;
+    width: 210%;
+    font-family: $font-family;
+}
+
+.modal-item--bottom {
+    margin-bottom: 10px;
+}
+
+.modal-button {
+    height: 35px;
+    border-radius: 25px;
+    outline: none;
+    border: none;
+    background-color: $button-primary-colour;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-family: 'Montserrat';
+}
+
+.modal-button--load {
+    background-color: $button-primary-hover-colour;
+}
+
+.modal-button:hover {
+    background-color: $button-primary-hover-colour;
+}
+
+.hover-cursor {
+    cursor: pointer;
+}
+
+.label {
+    font-size: 14px;
+    white-space: nowrap;
+    font-family: $font-family;
+    color:black;
+}
+
+.label--position {
+    margin-left: 5px;
+}

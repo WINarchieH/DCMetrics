@@ -1,0 +1,103 @@
+@import '../../assets/master';
+
+$header-height: 35px;
+
+.link--remove-style, .link--remove-style:focus {
+    text-decoration: none;
+}
+
+.link--remove-style, .link--remove-style:active, .link--remove-style:focus, .link--remove-style:hover {
+    color: inherit;
+}
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: $header-height;
+    padding: 15px 0px 15px 25px;
+    box-shadow: 0px 1px 1px 1px #D8D8D8;
+    font-size: medium;
+    width: inherit;
+    background-color: $header-background-colour;
+}
+
+.header-logo-container {
+    height: 50px;
+    margin-right: 20px;
+}
+
+.header-logo-container img {
+    height: 100%;
+}
+
+.header-button-container {
+    margin: 0px 15px;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: $font-family;
+   
+}
+
+.header-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 50px;
+}
+
+.settings {
+    cursor: pointer;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    text-align: center;
+    padding: 0px 10px;
+}
+
+.settings--item {
+    display: inline-flex;
+}
+
+.logout-button {
+    background-color: $button-primary-colour;
+    color: $button-primary-font-colour;
+    cursor: pointer;
+    padding: 10px 15px;
+    outline: none;
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.logout-button:hover {
+    background-color: $button-primary-hover-colour;
+}
+
+@media only screen and (max-device-width: 615px), (max-width: 615px)  {
+    .header-container {
+        padding: 10px 0px 10px 15px;
+        box-shadow: 0px 1px 2px 2px #D8D8D8;
+    }
+
+    .header-logo-container {
+        height: 35px;
+        margin-right: 0px;
+    }
+
+    .header-button-container {
+        margin: 0px 10px;
+        font-size: 12px;
+    }
+}
+
+@media only screen and (max-device-width: 425px), (max-width: 425px)  {
+    .header-logo-container {
+        display: none;
+    }
+}

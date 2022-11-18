@@ -1,0 +1,15 @@
+{
+  "short_name": "React App",
+  "name": "DC Metrics 4.0",
+  "icons": [
+    {
+      "src": "logo.bmp",
+      "sizes": "390x142",
+      "type": "image/bmp"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

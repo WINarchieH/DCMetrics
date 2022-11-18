@@ -1,0 +1,21 @@
+@import '../../assets/modal';
+
+.select-container { 
+    display: flex;
+    flex-direction: row;
+}
+
+.select-item {
+    cursor: pointer;
+    padding: 10px;
+    margin: 20px;
+    background-color: $button-primary-colour;
+    color: $button-primary-font-colour;
+    border-radius: 5px;
+    font-family: 'Montserrat';
+}
+
+.select-item:hover {
+    background-color: $button-primary-hover-colour;
+}
+

@@ -1,0 +1,70 @@
+@import '../../../assets/modal';
+
+$popup-background: #FFFFFF;
+$popup-background-colour: #D8D8D8;
+$popup-width: 275px;
+$max-popup-width: 85vw;
+$popup-height: 85vh;
+$form-width: 260px;
+
+.popup-background {
+    position: absolute;
+    cursor: default;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: $popup-background-colour;
+    opacity: 0.7;
+    z-index: 99;
+}
+
+.popup-container {
+    cursor: default;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $popup-background;
+    border: 1px solid #D8D8D8;
+    border-radius: 10px;
+    max-height: $popup-height;
+    z-index: 100;
+}
+
+.popup-container--hide {
+    display: none;
+}
+
+.popup-container--display {
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding:10px 40px 30px 40px;
+}
+
+.popup-title {
+    margin: 10px 0px;
+}
+
+.popup-position {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 99;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    width:310px;
+  
+}
+
+.form-item input, .container button {
+    height: 35px;
+    border-radius: 25px;
+    outline: none;
+}

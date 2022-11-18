@@ -1,0 +1,36 @@
+// @import '../../../assets/master';
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+
+
+.dashboard-container {
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px 15px;
+    margin: 10px 15px;
+}
+
+.links-card {
+    border-radius: 15px;
+    background-color:red;
+    padding: 20px;
+    
+}
+
+.links-title {
+
+    font-family:'Montserrat';
+}
+
+.links-item {
+    color:black;
+    font-size:18px;
+     font-family:'Montserrat';
+}
+
+.links-item:hover {
+    color:red;
+}

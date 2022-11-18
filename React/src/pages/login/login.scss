@@ -1,0 +1,136 @@
+@import '../../assets/master';
+
+.background {
+    height: 100%;
+    background: $background-primary-colour;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container {
+    top: 25px;
+    padding: 0px;
+    margin: 0px auto 0px auto;
+    text-align: center;
+}
+
+.logo-container img {
+    margin: 15px 0px 25px 0px;
+}
+
+.logo-container figcaption, .login-form-item {
+    color: $font-primary-colour;
+}
+
+.logo-container img, .logo-container figcaption, .login-container form {
+    width: 90%;
+}
+
+.login-container figcaption {
+    margin: auto;
+}
+.login-container {
+    background: #FFFFFF;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 50px;
+    overflow: hidden;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.login-form {
+    padding-top: 10px;
+}
+
+.login-form-item--mui {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.forgotPassword-form-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-form-item input, .login-container button {
+    height: 35px;
+    border-radius: 25px;
+    outline: none;
+}
+
+.login-form-item input {
+    border: 1.5px solid $input-outline-colour;
+    margin-top: 2.5px;
+    font-size: 16px;
+}
+
+.login-form-item button {
+    border: none;
+    background-color: $button-primary-colour;
+    color: #FFFFFF;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.login-form-item label, .login-form-item input {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.login-form-item button:hover {
+    background-color: $button-primary-hover-colour;
+}
+
+.error-message {
+    max-width: 312px;
+    margin: 21.6px 10px 0px 10px;
+    color: $error-colour;
+    
+}
+.Success-Message
+{
+    max-width: 312px;
+    margin: 21.6px 10px 0px 10px;
+    color: $success-colour;
+
+}
+
+.centermessage
+{
+    color:blue;
+    font-size: medium;
+    text-align: center;
+    margin-left: 30%;
+
+}
+
+@media only screen and (max-device-width: 425px) and (min-device-width: 320px) {
+    .logo-container {
+        width: 200px;
+    }
+    .login-container figcaption {
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
+    .error-message {
+        max-width: 173.91px;
+    }
+}
+

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toggle Renders 1`] = `
+<div
+  className="modal-item"
+>
+  <label
+    className="label label--position"
+  >
+    test
+  </label>
+  <div
+    className="modal-fields modal-fields--center"
+  >
+    <label
+      className="toggle-container"
+    >
+      <input
+        checked={false}
+        className="toggle-checkbox"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <div
+        className="toggle-slider"
+      />
+    </label>
+  </div>
+</div>
+`;

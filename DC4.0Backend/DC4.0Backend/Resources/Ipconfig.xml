@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DCMetrics>
+  <wsip>10.37.0.112</wsip>
+  <wsport>92</wsport>
+    <Smtphost>smtp-relay.sendinblue.com</Smtphost>
+  <SmtpPort>587</SmtpPort>
+  <SmtpUserID></SmtpUserID>
+  <SmtpPassword>DgEa7CzSJnY98cL1</SmtpPassword>
+  <EmailAddress>shitizj@winsolutions.com.au</EmailAddress>
+  </DCMetrics>

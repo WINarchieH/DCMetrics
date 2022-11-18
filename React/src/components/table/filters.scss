@@ -1,0 +1,11 @@
+.container--space-between {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    column-gap: 10px;
+}
+
+.container--align-dates {
+    position: relative;
+    top: -8px;
+}

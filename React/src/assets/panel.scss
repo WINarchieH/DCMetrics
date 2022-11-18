@@ -1,0 +1,121 @@
+@import '../assets/master';
+$sidebar-font-colour: #FFFFFF;
+
+.sidebar-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar {
+    min-width: #{'min(#{250px}, #{20vw})'};
+}
+
+.sidebar-main-width {
+    width: #{'max(calc(#{100vw} - #{250px}), #{80vw})'}
+}
+
+.sidebar-title {
+    box-sizing: border-box;
+    text-align: center;
+    padding: 15px 0px;
+    font-size: 25px;
+    font-weight: bold;
+    color: $sidebar-font-colour;
+    background-color: $background-primary-colour;
+    height: 66px;
+    opacity: 0.9;
+}
+
+.sidebar-menu {
+    height: 100%;
+    text-align: center;
+    background-color: #404040;
+    opacity: 0.5;
+    overflow: auto;
+}
+
+.sidebar-menu--item {
+    // padding: 15px 0px;
+    font-size: 20px;
+    color: $sidebar-font-colour;
+    background-color: ghostwhite;
+}
+
+.screen-container.screen-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    background-color:#ffffff;
+    
+}
+
+.screen-container--clumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+
+.panel {
+    margin: 25px 10px 25px 10px;
+    width: inherit;
+}
+
+.panel--table {
+    overflow-y: hidden;
+    width: 100%;
+    margin: 1px 20px;
+    background: white;
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+}
+
+.panel--header {
+    width: 100%;
+    margin: 25px 20px 5px 20px;
+    padding: 5px 5px 0px 5px;
+}
+
+.panel--report {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 85vh;
+    margin: 25px 20px;
+}
+
+.panel--center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.report {
+    width: 100%;
+    max-width: 908px;
+    height: inherit;
+}
+
+.parameter-container {
+    margin: 0px 25px 25px 25px;
+}
+
+.parameter-container--row {
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 20px;
+    
+}
+
+
+
+@media (max-width: 850px) {
+    .sidebar {
+        display: none;
+    }
+
+    .sidebar-main-width {
+        width: 100vw;
+    }
+}

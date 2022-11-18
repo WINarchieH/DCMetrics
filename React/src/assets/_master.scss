@@ -1,0 +1,36 @@
+// File containing main colour themes for DC Metric 4.0
+// This file should only contain SASS variables
+
+// @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;1,300&family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+$menu-font-colour: #808080;
+
+$header-background-colour: #FFFFFF;
+
+$button-primary-colour:  rgb(35,168,224) ; 
+$button-primary-hover-colour: rgb(129,129,129);
+$button-primary-font-colour: #FFFFFF;
+$input-outline-colour: #D1D1D1;
+
+$background-primary-colour:rgb(35,168,224);
+
+$font-primary-colour: #3D5F90;
+$error-colour: #ff0000;
+$success-colour: #008000;
+
+//$font-family: 'Times New Roman';
+
+//font-family: 'Montserrat
+$font-family: 'Montserrat';
+
+// Screen Background Colour
+$screen-background: #FFFFFF;
+
+// Table CSS
+$table-header-color: #FFFFFF;
+$table-row-color-even: rgb(255,255,255);
+$table-row-color-odd:  rgb(233,247,254); //rgb(35,168,224);//rgb(158, 163, 165);
+// $table-row-onhover: rgba(61, 95, 144, 0.5);
+$table-row-onhover:   rgb(241,242,242); // rgb(35,168,224);// rgba(211, 211, 211, 0.705);

@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropdown Renders 1`] = `
+<div
+  className="modal-item"
+>
+  <label
+    className="label label--position"
+  >
+    test
+  </label>
+  <select
+    className="modal-fields modal-fields--outline"
+    onChange={[Function]}
+    value=""
+  >
+    <option
+      className="dropdown-item"
+      value=""
+    >
+      Select 
+      test
+    </option>
+  </select>
+</div>
+`;
+
+exports[`Dropdown with Inputs 1`] = `
+<div
+  className="modal-item"
+>
+  <label
+    className="label label--position"
+  >
+    Gender
+  </label>
+  <select
+    className="modal-fields modal-fields--outline"
+    onChange={[Function]}
+    required={true}
+    value=""
+  >
+    <option
+      className="dropdown-item"
+      value=""
+    >
+      Select 
+      gender
+    </option>
+    <option
+      className="dropdown-item"
+      value="M"
+    >
+      Male
+    </option>
+    <option
+      className="dropdown-item"
+      value="F"
+    >
+      Female
+    </option>
+    <option
+      className="dropdown-item"
+      value="X"
+    >
+      Unspecified
+    </option>
+  </select>
+</div>
+`;
