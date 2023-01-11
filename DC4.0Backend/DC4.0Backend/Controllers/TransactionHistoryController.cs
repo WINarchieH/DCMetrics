@@ -24,14 +24,14 @@ namespace DC4._0Backend.Controllers
             List<TransHistory> historylist = new List<TransHistory>();
 
 
-            sSQL = "Select  di.BatchNumber,di.TaskType,concat(ui.FirstName,' ',ui.Surname) as 'FullName',Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.TaskEndDateTime,di.EndDateTime),103)'EndDateTime'," +
-                  "di.ActualTime,IsNull(di.TotalBreak, 0)'TotalBreak',di.OrderNumber,IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode, di.ProductWeight, di.ProductCube, di.PickQuantity,di.AddDate," +
+            sSQL = "Select  di.BatchNumber,di.TaskType,concat(ui.FirstName,' ',ui.Surname) as 'FullName',Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.EndDateTime,di.EndDateTime),103)'EndDateTime'," +
+                  "Cast ( di.ActualTime as decimal(5,1)) 'ActualTime',IsNull(di.TotalBreak, 0)'TotalBreak',di.OrderNumber,IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode,  Cast( di.ProductWeight as int)'ProductWeight', Cast( di.ProductCube as int) ProductCube, Cast( di.PickQuantity as int) 'PickQuantity',di.AddDate," +
                   "di.ProductDescription,di.[FullCase/SplitCase],di.ID,di.OperatorID,di.UpdatedBy,di.Comment ,  ui.TeamManager From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where Convert(DateTime, Convert(Char(19),di.StartDateTime,103),103) " +
                   " Between Convert(DateTime, Convert(Char(19),'" + trans.StartDate + "',103),103) And Convert(DateTime, Convert(Char(19),'" + trans.EndDate + "',103),103) And di.TaskType like '%%'  Order by di.OperatorID,di.StartDateTime";
 
             SqlConnection sqlconnection = new SqlConnection(ConfigurationManager.ConnectionStrings[trans.Site].ConnectionString);
-            SqlCommand  sqlCommand = new SqlCommand(sSQL, sqlconnection);
-            sqlCommand.CommandTimeout = 420; 
+            SqlCommand sqlCommand = new SqlCommand(sSQL, sqlconnection);
+            sqlCommand.CommandTimeout = 420;
             DataSet ds = new DataSet();
             SqlDataAdapter da = new SqlDataAdapter(sqlCommand);
 
@@ -58,10 +58,10 @@ namespace DC4._0Backend.Controllers
                     TransHistory obj = new TransHistory();
                     obj.BatchNumber = row["BatchNumber"].ToString();
                     obj.TaskType = row["TaskType"].ToString();
-                
+
                     obj.FullName = row["FullName"].ToString();
 
-                    if ( !( string.IsNullOrEmpty(row["StartDateTime"].ToString())))
+                    if (!(string.IsNullOrEmpty(row["StartDateTime"].ToString())))
                     {
                         obj.StartDate = Convert.ToDateTime(row["StartDateTime"]).ToString("dd/MM/yyyy");
                         obj.StartTime = Convert.ToDateTime(row["StartDateTime"]).ToString("HH:mm:ss");
@@ -105,10 +105,10 @@ namespace DC4._0Backend.Controllers
                     Logging.WriteLog(trans.Site, "Error", "TransactionHistory", "GetAllTransaction", sSQL.Replace("'", "''"), 3002, trans.DCMUser);
                 }
                 catch (Exception e) { }
-                
+
                 return "Error Occured:While Fetching the List";
             }
-        
+
             return Newtonsoft.Json.JsonConvert.SerializeObject(historylist);
         }
 
@@ -141,7 +141,7 @@ namespace DC4._0Backend.Controllers
             try
             {
 
-                da.Fill(ds); 
+                da.Fill(ds);
 
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
@@ -193,7 +193,7 @@ namespace DC4._0Backend.Controllers
             {
                 try
                 {
-                    Logging.WriteLog(trans.Site, "Error", "TransactionHistory", "GetAllTransaction","",  3002, trans.DCMUser);
+                    Logging.WriteLog(trans.Site, "Error", "TransactionHistory", "GetAllTransaction", "", 3002, trans.DCMUser);
                 }
                 catch (Exception e) { }
 
@@ -212,9 +212,9 @@ namespace DC4._0Backend.Controllers
 
             string taskenddate = trans.EndDate + " " + trans.EndTime;
 
-            sSQL = "update DCMImport set TaskEndDateTime  = Convert(DateTime,'" + taskenddate + "',103) , UpdatedBy = '"+trans.UpdatedBy+"', Comment = '"+trans.Comment+"' where  BatchNumber ='"+trans.BatchNumber+"' and ID = " +trans.ID;
+            sSQL = "update DCMImport set EndDateTime  = Convert(DateTime,'" + taskenddate + "',103) , UpdatedBy = '" + trans.UpdatedBy + "', Comment = '" + trans.Comment + "' where  BatchNumber ='" + trans.BatchNumber + "' and ID = " + trans.ID;
             Connection conn = new Connection();
-          
+
             try
             {
                 try
@@ -225,7 +225,7 @@ namespace DC4._0Backend.Controllers
                 {
 
                 }
-               string result = conn.ExecuteUpdateQuery(sSQL, trans.Site);
+                string result = conn.ExecuteUpdateQuery(sSQL, trans.Site);
 
                 if (result != "Update SuccessFull")
                 {
@@ -239,7 +239,7 @@ namespace DC4._0Backend.Controllers
                     Logging.WriteLog(trans.Site, "Error", "TransactionHistory", "UpdateTransaction", sSQL.Replace("'", "''"), 3002, trans.DCMUser);
                 }
                 catch (Exception e) { }
-                
+
                 return "Error Occured while updating the transaction";
             }
 
@@ -263,7 +263,7 @@ namespace DC4._0Backend.Controllers
             {
                 case "Picks":
                     trans.TaskType = "Picks";
-                    trans.OrderNumber =  "not like "+"'B%'";
+                    trans.OrderNumber = "not like " + "'B%'";
                     break;
                 case "B2C Picks":
                     trans.TaskType = "Picks";
@@ -283,24 +283,24 @@ namespace DC4._0Backend.Controllers
 
             if (tasktype.Equals("B2C Picks"))
             {
-                sSQL = "Select di.TaskType,di.CrushFactor,di.OrderNumber,Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.TaskEndDateTime,di.EndDateTime),103)'EndDateTime',di.ActualTime,IsNull(di.TotalBreak, 0)'TotalBreak'," +
-                       " di.PickQuantity,di.OperatorID, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode, di.ProductWeight, di.ProductCube From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where di.OperatorID = '" + trans.OperatorID + "' and " + " di.TaskType= '" + trans.TaskType + "'" + "and di.OrderNumber " + trans.OrderNumber +
+                sSQL = "Select di.TaskType,di.CrushFactor,di.OrderNumber,Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.EndDateTime,di.EndDateTime),103)'EndDateTime',Cast ( Cast ( di.ActualTime as decimal(5,1)) 'ActualTime' as decimal(5,1)) 'ActualTime',IsNull(di.TotalBreak, 0)'TotalBreak'," +
+                       " Cast( di.PickQuantity as int) 'PickQuantity',di.OperatorID, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode, Cast( Cast( di.ProductWeight as int)'ProductWeight' as int) 'ProductWeight', Cast( Cast( di.ProductCube as int) ProductCube as int) 'ProductCube' From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where di.OperatorID = '" + trans.OperatorID + "' and " + " di.TaskType= '" + trans.TaskType + "'" + "and di.OrderNumber " + trans.OrderNumber +
                        " and Convert(DateTime, Convert(Char(19),di.StartDateTime,103),103)  Between Convert(DateTime, Convert(Char(19),'" + trans.StartDate + "',103),103) And Convert(DateTime, Convert(Char(19),'" + trans.EndDate + "',103),103) and di.CrushFactor = 'ZB2C' Order by di.OperatorID,di.StartDateTime";
 
             }
             else if (tasktype.Equals("Picks"))
             {
-                sSQL = "Select di.TaskType,di.CrushFactor,ci.OrderNumber , Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.TaskEndDateTime,di.EndDateTime),103)'EndDateTime', "+
-                        "di.ActualTime,IsNull(di.TotalBreak, 0)'TotalBreak', di.PickQuantity,di.OperatorID, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode, di.ProductWeight, di.ProductCube "+ 
+                sSQL = "Select di.TaskType,di.CrushFactor,ci.OrderNumber , Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.EndDateTime,di.EndDateTime),103)'EndDateTime', " +
+                        "Cast ( di.ActualTime as decimal(5,1)) 'ActualTime',IsNull(di.TotalBreak, 0)'TotalBreak', Cast( di.PickQuantity as int) 'PickQuantity',di.OperatorID, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode,  Cast( di.ProductWeight as int)'ProductWeight', Cast( di.ProductCube as int) ProductCube " +
                         "From DCMImport di inner join CalcEstimatedPickTime ci on di.OperatorID = ci.UserID and di.StartDateTime = ci.StartDateTime " +
-                        " Where di.OperatorID = '"+trans.OperatorID+"' and di.TaskType = 'Picks'and di.OrderNumber not like 'B%' and Convert(DateTime, Convert(Char(19),di.StartDateTime,103),103) " +
-                        " Between Convert(DateTime, Convert(Char(19),'"+trans.StartDate+"',103),103) And Convert(DateTime, Convert(Char(19),'"+trans.EndDate+"',103),103) and di.CrushFactor <> 'ZB2C' Order by di.OperatorID,di.StartDateTime";
+                        " Where di.OperatorID = '" + trans.OperatorID + "' and di.TaskType = 'Picks'and di.OrderNumber not like 'B%' and Convert(DateTime, Convert(Char(19),di.StartDateTime,103),103) " +
+                        " Between Convert(DateTime, Convert(Char(19),'" + trans.StartDate + "',103),103) And Convert(DateTime, Convert(Char(19),'" + trans.EndDate + "',103),103) and di.CrushFactor <> 'ZB2C' Order by di.OperatorID,di.StartDateTime";
 
             }
             else
             {
-                sSQL = "Select di.TaskType,di.CrushFactor,di.OrderNumber,Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.TaskEndDateTime,di.EndDateTime),103)'EndDateTime',di.ActualTime,IsNull(di.TotalBreak, 0)'TotalBreak'," +
-                       " di.PickQuantity,di.OperatorID, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode, di.ProductWeight, di.ProductCube From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where di.OperatorID = '" + trans.OperatorID + "' and " + " di.TaskType= '" + trans.TaskType + "'" + "and di.OrderNumber " + trans.OrderNumber +
+                sSQL = "Select di.TaskType,di.CrushFactor,di.OrderNumber,Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.EndDateTime,di.EndDateTime),103)'EndDateTime',Cast ( di.ActualTime as decimal(5,1)) 'ActualTime',IsNull(di.TotalBreak, 0)'TotalBreak'," +
+                       " Cast( di.PickQuantity as int) 'PickQuantity',di.OperatorID, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode,  Cast( di.ProductWeight as int)'ProductWeight', Cast( di.ProductCube as int) ProductCube From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where di.OperatorID = '" + trans.OperatorID + "' and " + " di.TaskType= '" + trans.TaskType + "'" + "and di.OrderNumber " + trans.OrderNumber +
                        " and Convert(DateTime, Convert(Char(19),di.StartDateTime,103),103)  Between Convert(DateTime, Convert(Char(19),'" + trans.StartDate + "',103),103) And Convert(DateTime, Convert(Char(19),'" + trans.EndDate + "',103),103)  Order by di.OperatorID,di.StartDateTime";
             }
             Connection conn = new Connection();
@@ -358,7 +358,7 @@ namespace DC4._0Backend.Controllers
 
                     historylist.Add(obj);
                 }
-                }
+            }
             catch (Exception ex)
             {
                 try
@@ -401,8 +401,8 @@ namespace DC4._0Backend.Controllers
             //        break;
             //}
 
-            sSQL = "Select di.TaskType,di.OrderNumber,Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.TaskEndDateTime,di.EndDateTime),103)'EndDateTime',di.ActualTime,IsNull(di.TotalBreak, 0)'TotalBreak'," +
-                   " di.PickQuantity,di.OperatorID, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode, di.ProductWeight, di.ProductCube From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where di.OperatorID = '" + trans.OperatorID + "' and " + " di.TaskType= 'Replenishment'" + 
+            sSQL = "Select di.TaskType,di.OrderNumber,Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.EndDateTime,di.EndDateTime),103)'EndDateTime',Cast ( di.ActualTime as decimal(5,1)) 'ActualTime',IsNull(di.TotalBreak, 0)'TotalBreak'," +
+                   " Cast( di.PickQuantity as int) 'PickQuantity',di.OperatorID, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode,  Cast( di.ProductWeight as int)'ProductWeight', Cast( di.ProductCube as int) ProductCube From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where di.OperatorID = '" + trans.OperatorID + "' and " + " di.TaskType= 'Replenishment'" +
                    " and Convert(DateTime, Convert(Char(19),di.StartDateTime,103),103)  Between Convert(DateTime, Convert(Char(19),'" + trans.StartDate + "',103),103) And Convert(DateTime, Convert(Char(19),'" + trans.EndDate + "',103),103)  Order by di.OperatorID,di.StartDateTime";
 
             Connection conn = new Connection();
@@ -501,8 +501,8 @@ namespace DC4._0Backend.Controllers
             //        break;
             //}
 
-            sSQL = "Select di.TaskType,di.OrderNumber,Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.TaskEndDateTime,di.EndDateTime),103)'EndDateTime',di.ActualTime,IsNull(di.TotalBreak, 0)'TotalBreak'," +
-                   " di.PickQuantity,di.OperatorID, di.PalletsHandled,di.CasesHandled, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode, di.ProductWeight, di.ProductCube  From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where di.OperatorID = '" + trans.OperatorID + "' and " + " di.TaskType= 'Dynamic Picks'" +
+            sSQL = "Select di.TaskType,di.OrderNumber,Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.EndDateTime,di.EndDateTime),103)'EndDateTime',Cast ( di.ActualTime as decimal(5,1)) 'ActualTime',IsNull(di.TotalBreak, 0)'TotalBreak'," +
+                   " Cast( di.PickQuantity as int) 'PickQuantity',di.OperatorID, di.PalletsHandled,di.CasesHandled, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode,  Cast( di.ProductWeight as int)'ProductWeight', Cast( di.ProductCube as int) ProductCube  From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where di.OperatorID = '" + trans.OperatorID + "' and " + " di.TaskType= 'Dynamic Picks'" +
                    " and Convert(DateTime, Convert(Char(19),di.StartDateTime,103),103)  Between Convert(DateTime, Convert(Char(19),'" + trans.StartDate + "',103),103) And Convert(DateTime, Convert(Char(19),'" + trans.EndDate + "',103),103)  Order by di.OperatorID,di.StartDateTime";
 
             Connection conn = new Connection();
@@ -576,6 +576,113 @@ namespace DC4._0Backend.Controllers
         }
 
 
+        [AcceptVerbs("GET", "POST")]
+        [HttpPost]
+        public string GetAllSelectedUserTransactionProd_Dubbo([FromBody]TransHistory trans)
+        {
+            string sSQL = string.Empty;
+
+            List<TransHistory> historylist = new List<TransHistory>();
+
+
+            //switch (trans.TaskType)
+            //{
+            //    case "Picking":
+            //        trans.TaskType = "picks";
+            //        trans.OrderNumber = "not like " + "'B%'";
+            //        break;
+
+            //    case "ChutePick":
+            //        trans.TaskType = "CHUTEPICKING";
+            //        trans.OrderNumber = "not like " + "'B%'";
+            //        break;
+
+            //    case "BatchPick":
+            //        trans.TaskType = "picks";
+            //        trans.OrderNumber = " like " + "'B%'";
+            //        break;
+            //}
+
+            sSQL = "Select di.TaskType,di.OrderNumber,Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.EndDateTime,di.EndDateTime),103)'EndDateTime',Cast ( di.ActualTime as decimal(5,1)) 'ActualTime',IsNull(di.TotalBreak, 0)'TotalBreak'," +
+                   " Cast( di.PickQuantity as int) 'PickQuantity',di.OperatorID, di.PalletsHandled,di.CasesHandled, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode,  Cast( di.ProductWeight as int)'ProductWeight', Cast( di.ProductCube as int) ProductCube  From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where di.OperatorID = '" + trans.OperatorID + "' and " + " di.TaskType= 'Dynamic Picks'" +
+                   " and Convert(DateTime, Convert(Char(19),di.StartDateTime,103),103)  Between Convert(DateTime, Convert(Char(19),'" + trans.StartDate + "',103),103) And Convert(DateTime, Convert(Char(19),'" + trans.EndDate + "',103),103)  Order by di.OperatorID,di.StartDateTime";
+
+            Connection conn = new Connection();
+            DataTable dt = new DataTable();
+            try
+            {
+                try
+                {
+                    Logging.WriteLog(trans.Site, "Info", "TransactionHistory", "GetAllTransaction", sSQL.Replace("'", "''"), 1002, trans.DCMUser);
+                }
+                catch (Exception ex)
+                {
+
+                }
+                DataSet ds = conn.ExecuteSelectQuery(sSQL, trans.Site);
+
+                dt = ds.Tables[0];
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+
+                    TransHistory obj = new TransHistory();
+
+                    obj.TaskType = row["TaskType"].ToString();
+
+
+
+                    if (!(string.IsNullOrEmpty(row["StartDateTime"].ToString())))
+                    {
+
+                        obj.StartTime = Convert.ToDateTime(row["StartDateTime"]).ToString("HH:mm:ss");
+
+                    }
+
+                    if (!(string.IsNullOrEmpty(row["EndDateTime"].ToString())))
+                    {
+
+                        obj.EndTime = Convert.ToDateTime(row["EndDateTime"]).ToString("HH:mm:ss");
+
+                    }
+                    obj.ActualTime = row["ActualTime"].ToString();
+                    obj.TotalBreak = row["TotalBreak"].ToString();
+
+                    obj.OrderNumber = row["OrderNumber"].ToString();
+                    obj.PickQuantity = row["PickQuantity"].ToString();
+                    //obj.PalletsHandled = Convert.ToInt32(row["PalletsHandled"]);
+                    //obj.CasesHandled = Convert.ToInt32(row["CasesHandled"].ToString());
+                    obj.OperatorID = row["OperatorID"].ToString();
+                    obj.FromLocation = row["FromLocation"].ToString();
+                    obj.ToLocation = row["ToLocation"].ToString();
+                    obj.ProductCode = row["ProductCode"].ToString();
+                    obj.ProductWeight = row["ProductWeight"].ToString();
+                    obj.ProductCube = row["ProductCube"].ToString();
+
+
+                    historylist.Add(obj);
+                }
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    Logging.WriteLog(trans.Site, "Error", "TransactionHistory", "GetAllTransaction", sSQL.Replace("'", "''"), 3002, trans.DCMUser);
+                }
+                catch (Exception e) { }
+
+                return "Error Occured:While Fetching the List";
+            }
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(historylist);
+        }
+
+
+
+
+
+
+
 
 
         [AcceptVerbs("GET", "POST")]
@@ -605,8 +712,8 @@ namespace DC4._0Backend.Controllers
             //        break;
             //}
 
-            sSQL = "Select di.TaskType,di.OrderNumber,Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.TaskEndDateTime,di.EndDateTime),103)'EndDateTime',di.ActualTime,IsNull(di.TotalBreak, 0)'TotalBreak'," +
-                   " di.PickQuantity,di.OperatorID, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode, di.ProductWeight, di.ProductCube From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where di.OperatorID = '" + trans.OperatorID + "' and " + " di.TaskType= 'Move'" +
+            sSQL = "Select di.TaskType,di.OrderNumber,Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.EndDateTime,di.EndDateTime),103)'EndDateTime',Cast ( di.ActualTime as decimal(5,1)) 'ActualTime',IsNull(di.TotalBreak, 0)'TotalBreak'," +
+                   " Cast( di.PickQuantity as int) 'PickQuantity',di.OperatorID, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode,  Cast( di.ProductWeight as int)'ProductWeight', Cast( di.ProductCube as int) ProductCube From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where di.OperatorID = '" + trans.OperatorID + "' and " + " di.TaskType= 'Move'" +
                    " and Convert(DateTime, Convert(Char(19),di.StartDateTime,103),103)  Between Convert(DateTime, Convert(Char(19),'" + trans.StartDate + "',103),103) And Convert(DateTime, Convert(Char(19),'" + trans.EndDate + "',103),103)  Order by di.OperatorID,di.StartDateTime";
 
             Connection conn = new Connection();
@@ -704,8 +811,8 @@ namespace DC4._0Backend.Controllers
             //        break;
             //}
 
-            sSQL = "Select di.TaskType,di.OrderNumber,Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.TaskEndDateTime,di.EndDateTime),103)'EndDateTime',di.ActualTime,IsNull(di.TotalBreak, 0)'TotalBreak'," +
-                   " di.PickQuantity,di.OperatorID, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode, di.ProductWeight, di.ProductCube From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where di.OperatorID = '" + trans.OperatorID + "' and " + " di.TaskType= 'Pack'" +
+            sSQL = "Select di.TaskType,di.OrderNumber,Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.EndDateTime,di.EndDateTime),103)'EndDateTime',Cast ( di.ActualTime as decimal(5,1)) 'ActualTime',IsNull(di.TotalBreak, 0)'TotalBreak'," +
+                   " Cast( di.PickQuantity as int) 'PickQuantity',di.OperatorID, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode,  Cast( di.ProductWeight as int)'ProductWeight', Cast( di.ProductCube as int) ProductCube From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where di.OperatorID = '" + trans.OperatorID + "' and " + " di.TaskType= 'Pack'" +
                    " and Convert(DateTime, Convert(Char(19),di.StartDateTime,103),103)  Between Convert(DateTime, Convert(Char(19),'" + trans.StartDate + "',103),103) And Convert(DateTime, Convert(Char(19),'" + trans.EndDate + "',103),103)  Order by di.OperatorID,di.StartDateTime";
 
             Connection conn = new Connection();
@@ -804,8 +911,8 @@ namespace DC4._0Backend.Controllers
             //        break;
             //}
 
-            sSQL = "Select di.TaskType,di.OrderNumber,Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.TaskEndDateTime,di.EndDateTime),103)'EndDateTime',di.ActualTime,IsNull(di.TotalBreak, 0)'TotalBreak'," +
-                   " di.PickQuantity,di.OperatorID, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode, di.ProductWeight, di.ProductCube From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where di.OperatorID = '" + trans.OperatorID + "' and " + " di.TaskType= 'Putaways'" +
+            sSQL = "Select di.TaskType,di.OrderNumber,Convert(DateTime,di.StartDateTime,103) 'StartDateTime',Convert(DateTime,IsNull(di.EndDateTime,di.EndDateTime),103)'EndDateTime',Cast ( di.ActualTime as decimal(5,1)) 'ActualTime',IsNull(di.TotalBreak, 0)'TotalBreak'," +
+                   " Cast( di.PickQuantity as int) 'PickQuantity',di.OperatorID, IsNull(di.FromLocation, '')'FromLocation',IsNull(di.ToLocation, '')'ToLocation', di.ProductCode,  Cast( di.ProductWeight as int)'ProductWeight', Cast( di.ProductCube as int) ProductCube From DCMImport di left join  UserInfo ui on di.OperatorID = ui.UserID Where di.OperatorID = '" + trans.OperatorID + "' and " + " di.TaskType= 'Putaways'" +
                    " and Convert(DateTime, Convert(Char(19),di.StartDateTime,103),103)  Between Convert(DateTime, Convert(Char(19),'" + trans.StartDate + "',103),103) And Convert(DateTime, Convert(Char(19),'" + trans.EndDate + "',103),103)  Order by di.OperatorID,di.StartDateTime";
 
             Connection conn = new Connection();

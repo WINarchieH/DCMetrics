@@ -4,7 +4,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
-const Toggle = ({name, label, checked, onChange}) => {
+const Toggle = ({name, label, checked, onChange, }) => {
     /**
      * Toggle Component 
      * 
@@ -12,6 +12,7 @@ const Toggle = ({name, label, checked, onChange}) => {
      * @param {string} label - title of toggle to be displayed 
      * @param {bool} checked - determines whether the default mode is checked or not
      * @param {func} onChange - handler for changing toggle value
+     *
      */
     return (
         <div className='modal-item'>
@@ -25,6 +26,7 @@ const Toggle = ({name, label, checked, onChange}) => {
                                 onChange={e => onChange(!checked)}
                                 name={name}
                                 color="primary"
+                             
                             />
                         } />
                 </FormGroup>

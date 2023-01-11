@@ -853,4 +853,73 @@ router.post('/CCAPickDashboard/GetCCA_PickAccuracy_All_Weekly', (req, res) => {
 });
 
 
+router.post('/Makita/GetMakita_Picks_Weekly_DayShift', (req, res) => {
+    let data = req.body;
+    api.dc4.post('/Makita/GetMakita_Picks_Weekly_DayShift', data).then(
+        response => {
+            let output = response.data;
+           
+            res.send(output);   
+        }).catch(
+            err => {
+                res.status('503').send({
+                    message: 'Failed to connect to server.'});
+            }
+        );
+});
+
+
+router.post('/Makita/GetMakita_Picks_Weekly_afternoonShift', (req, res) => {
+    let data = req.body;
+    api.dc4.post('/Makita/GetMakita_Picks_Weekly_afternoonShift', data).then(
+        response => {
+            let output = response.data;
+           
+            res.send(output);   
+        }).catch(
+            err => {
+                res.status('503').send({
+                    message: 'Failed to connect to server.'});
+            }
+        );
+});
+
+router.post('/Makita/GetMakita_Putaways_Weekly_DayShift', (req, res) => {
+    let data = req.body;
+    api.dc4.post('/Makita/GetMakita_Putaways_Weekly_DayShift', data).then(
+        response => {
+            let output = response.data;
+           
+            res.send(output);   
+        }).catch(
+            err => {
+                res.status('503').send({
+                    message: 'Failed to connect to server.'});
+            }
+        );
+});
+
+
+
+router.post('/Makita/GetMakita_Putaways_Weekly_afternoonShift', (req, res) => {
+    let data = req.body;
+    api.dc4.post('/Makita/GetMakita_Putaways_Weekly_afternoonShift', data).then(
+        response => {
+            let output = response.data;
+           
+            res.send(output);   
+        }).catch(
+            err => {
+                res.status('503').send({
+                    message: 'Failed to connect to server.'});
+            }
+        );
+});
+
+
+
+
+
+
+
 module.exports = router;

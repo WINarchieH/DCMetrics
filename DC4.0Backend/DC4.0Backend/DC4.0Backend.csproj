@@ -230,6 +230,8 @@
     <Compile Include="Controllers\Dashboard\DashboardLosttimeController.cs" />
     <Compile Include="Controllers\Dashboard\DashboardProductivityController.cs" />
     <Compile Include="Controllers\Dashboard\DashboardTaskTimeController.cs" />
+    <Compile Include="Controllers\Dashboard\MakitaController.cs" />
+    <Compile Include="Controllers\Dashboard\TMAController.cs" />
     <Compile Include="Controllers\ElitePayrollExportFileController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\EmailNotificationsController.cs" />
@@ -251,6 +253,7 @@
     <Compile Include="Controllers\PalletHandlingMatrixController.cs" />
     <Compile Include="Controllers\PayrollCodeController.cs" />
     <Compile Include="Controllers\PayrollExportFileController.cs" />
+    <Compile Include="Controllers\payrollHistoryController.cs" />
     <Compile Include="Controllers\PayrollRulesController.cs" />
     <Compile Include="Controllers\PayrollSettingsController.cs" />
     <Compile Include="Controllers\PFDMatrixController.cs" />

@@ -54,12 +54,12 @@ const ProductivityRepReport = () => {
         { Header: 'Total Time', accessor: 'TotalTime', modalType: 'textbox' },
         { Header: 'Total Hours', accessor: 'TotalHrs', modalType: 'textbox'},
         { Header: 'No Of Replenishment', accessor: 'NoOfReplenishment', modalType: 'textbox' },
+        { Header: 'Lines Per Hour', accessor: 'NoOfLines_Hr', modalType: 'textbox' },
         { Header: 'No Of Units', accessor: 'NoOfUnits', modalType: 'textbox'},
+        { Header: 'Shift', accessor: 'Shift', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown' },
         { Header: 'User Role', accessor: 'UserRole', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown'  },
         { Header: 'Manager', accessor: 'TeamManager', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown' ,  FilterValue :manager, SetFilterValue : setManager },
-        { Header: 'Lines Per Hour', accessor: 'NoOfLines_Hr', modalType: 'textbox' },
         { Header: 'WH', accessor: 'WH',Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown' },
-        { Header: 'Shift', accessor: 'Shift', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown' },
         { Header: 'RF Login', accessor: 'RFLogin', modalType: 'textbox' }
     ];
 

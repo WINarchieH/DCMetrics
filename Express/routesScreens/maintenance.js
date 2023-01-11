@@ -2502,6 +2502,26 @@ router.post('/Notifications/UpdateUserNotificationSettings', (req, res) => {
         );
 });
 
+
+router.post('/Notifications/GetUserSelectedNotificationModules', (req, res) => {
+    let data = req.body;
+    api.dc4.post('/Notifications/GetUserSelectedNotificationModules', data).then(
+        response => {
+            let output = response.data;
+
+            res.send(output);
+        }).catch(
+            err => {
+                res.status('503').send({
+                    message: 'Failed to connect to server.'
+                });
+            }
+        );
+});
+
+
+
+
 router.post('/UserGroupManagement/CreateNewUserGroup', (req, res) => {
     let data = req.body;
     api.dc4.post('/DCMUser/CreateUserGroup', data).then(
@@ -2606,6 +2626,76 @@ router.post('/Pickers/UpdateUserGroup', (req, res) => {
         );
 });
 
+
+router.post('/payrollHistory/GetAllRecords', (req, res) => {
+    let data = req.body;
+    api.dc4.post('/payrollHistory/GetAllRecords', data).then(
+        response => {
+            let output = response.data;
+
+            res.send(output);
+
+        }).catch(
+            err => {
+                res.status('503').send({
+                    message: 'Failed to connect to server.'
+                });
+            }
+        );
+});
+
+router.post('/TimeAndAttendence/GetAllTimeandAttendenceEntries_Makita', (req, res) => {
+    let data = req.body;
+    api.dc4.post('/TimeAndAttendence/GetAllTimeandAttendenceEntries_Makita', data).then(
+        response => {
+            let output = response.data;
+
+            res.send(output);
+
+        }).catch(
+            err => {
+                res.status('503').send({
+                    message: 'Failed to connect to server.'
+                });
+            }
+        );
+});
+
+
+router.post('/TimeAndAttendence/AddAttendance_Makita', (req, res) => {
+    let data = req.body;
+    api.dc4.post('/TimeAndAttendence/AddAttendance_Makita', data).then(
+        response => {
+            let output = response.data;
+
+            res.send(output);
+
+        }).catch(
+            err => {
+                res.status('503').send({
+                    message: 'Failed to connect to server.'
+                });
+            }
+        );
+});
+
+
+router.post('/TimeAndAttendence/UpdateTimeandAttendenceEntry_Makita', (req, res) => {
+    let data = req.body;
+    api.dc4.post('/TimeAndAttendence/UpdateTimeandAttendenceEntry_Makita', data).then(
+        response => {
+            let output = response.data;
+
+            res.send(output);
+
+        }).catch(
+            err => {
+                res.status('503').send({
+                    message: 'Failed to connect to server.'
+                });
+            }
+        );
+});
 
 
 

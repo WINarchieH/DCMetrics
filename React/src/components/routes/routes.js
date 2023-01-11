@@ -184,6 +184,7 @@ import timeattendencegrid from '../../pages/timeAndAttendance/timeAttendance_Gri
 import UserOnboarding from '../../pages/userManagement/userOnboarding/userOnboarding';
 import UserDiary from '../../pages/userManagement/userDiary/userDiary';
 import UserHistory from '../../pages/userManagement/userHistory/userHistory';
+import MakUserHistory from '../../pages/userManagement/userHistory/Mak/userHistory';
 import UserManagementConfig from '../../pages/userManagement/userManagementConfig/userManagementConfig';
 
 //BenchMark
@@ -212,7 +213,14 @@ import TMACasualReverseBillingPrint from '../../pages/reports/TMAcasualReverseBi
 
 import ReasonCode from '../../pages/maintenance/codes/reasoncode';
 import UserGroupManagement from '../../pages/maintenance/userGroupManagement/userGroupManagement'
+//Makita
+import MakitaProductivityPicktable from '../../pages/reports/productivityPick/productivityPickMakitaTable';
 import MakitaUserDetails from '../../pages/maintenance/userDetails/Makita/userDetails';
+import PayrollHistory from '../../pages/maintenance/payrollchangesHistory/payrollChangesHistory';
+import payrollChangesHistory from '../../pages/maintenance/payrollchangesHistory/payrollChangesHistory';
+import MakitaPickDashboard from '../../pages/dashboard/Makita/DailyPickDashboard';
+import MakitaPutawayDashboard from '../../pages/dashboard/Makita/Putaway/DailyPutawayDashboard';
+import MakitaTimeandAttendence from '../../pages/timeAndAttendance/timeAttendance_Gridtest/Makita/timeAttendance';
 
 
 
@@ -254,7 +262,7 @@ const Routes = () => {
         <PrivateRoute path='/Maintenance/Leave' name='Leave' exact component={Leave}></PrivateRoute>
         <PrivateRoute path='/Maintenance/PublicHoliday' name='Public Holiday' exact component={PublicHoliday}></PrivateRoute>
         <PrivateRoute path='/Maintenance/UserDetails' name='User Details' exact component={UserDetails}></PrivateRoute>
-        <PrivateRoute path='/Maintenance/Makita/UserDetails' name='User Details' exact component={MakitaUserDetails}></PrivateRoute>
+        <PrivateRoute path='/Maintenance/MakUserDetails' name='User Details' exact component={MakitaUserDetails}></PrivateRoute>
         <PrivateRoute path ='/Maintenance/ShiftDetails' name ="Shift Details" exact component={ShiftDetails}></PrivateRoute>
         <PrivateRoute path='/Maintenance/LeaveManagement' name='Leave Management' exact component={LeaveManagement}></PrivateRoute>
         <PrivateRoute path ='/Maintenance/LeaveCalenderView' name='ApprovedLeaveCalender' exact component={LeaveManagementCalenderView}></PrivateRoute>
@@ -264,7 +272,6 @@ const Routes = () => {
         <PrivateRoute path ='/Maintenance/Calendar' name='Calendar' exact component={DCMCalendar}></PrivateRoute>
         <PrivateRoute path ='/Maintenance/SafetyIncidents' name='Safety Incidents' exact component={SafetyIncidents}></PrivateRoute>
         <PrivateRoute path ='/Maintenance/safetyCommitteeInspectionChecklist' name='Safety Inspection Checklist' exact component={SafetyCommitteeInspectionChecklist}></PrivateRoute>
-
         <PrivateRoute path='/Maintenance/Errors' name='Errors' exact component={errors}></PrivateRoute>
         <PrivateRoute path='/Maintenance/UsergroupManagement' name='User Group Management' exact component={UserGroupManagement}></PrivateRoute>
 
@@ -273,6 +280,7 @@ const Routes = () => {
         <PrivateRoute path='/UserManagement/UserOnboarding' name='User Onboarding' exact component={UserOnboarding}></PrivateRoute>
         <PrivateRoute path='/UserManagement/UserDiary' name='User Diary' exact component={UserDiary}></PrivateRoute>
         <PrivateRoute path='/UserManagement/UserHistory' name='User History' exact component={UserHistory}></PrivateRoute>
+        <PrivateRoute path='/UserManagement/MakUserHistory' name='User History' exact component={MakUserHistory}></PrivateRoute>
         <PrivateRoute path='/UserManagement/userManagementConfig' name='User Management Config' exact component={UserManagementConfig}></PrivateRoute>
 
         {/** Dasboard Menu */}
@@ -282,6 +290,9 @@ const Routes = () => {
         <PrivateRoute path ='/DashBoard/DashboardLostTime' name='LostTime Dashboard' exact component={LostTimeDashboard}></PrivateRoute>
         <PrivateRoute path ='/DashBoard/DashboardTaskTime' name='TaskTime Dashboard' exact component={TaskTimeDashboard}></PrivateRoute>
         <PrivateRoute path ='/DashBoard/DashboardTotalShipped' name='TaskTime Dashboard' exact component={ShippedUnitsDashboard}></PrivateRoute>
+         {/** Makita Dashboard */}
+         <PrivateRoute path ='/DashBoard/MakPickDashboard' name='Daily User Pick Dashboard' exact component={MakitaPickDashboard}></PrivateRoute>
+        <PrivateRoute path ='/DashBoard/MakPutDashboard' name='Daily User Putaway Dashboard' exact component={MakitaPutawayDashboard}></PrivateRoute>
          {/** CCA Dasboard Menu */}
         <PrivateRoute path ='/DashBoard/CCADashboardLostTime' name='LostTime Dashboard' exact component={CCALostTimeDashboard}></PrivateRoute>
         <PrivateRoute path ='/DashBoard/CCADashboardTaskTime' name='TaskTime Dashboard' exact component={CCATaskTimeDashboard}></PrivateRoute>
@@ -312,6 +323,7 @@ const Routes = () => {
         <PrivateRoute path ='/TimeandAttendance/DailyRosters' name='Daily Rosters' exact component={UserTimeInformation}></PrivateRoute>
         <PrivateRoute path ='/TimeandAttendance/DailyView' name='Daily View' exact component={TimeAttendance}></PrivateRoute>
         <PrivateRoute path ='/TimeandAttendance/DailyViewGrid' name='Daily View' exact component={timeattendencegrid}></PrivateRoute>
+        <PrivateRoute path ='/TimeandAttendance/MakDailyViewGrid' name='Daily View' exact component={MakitaTimeandAttendence}></PrivateRoute>
         <PrivateRoute path ='/TimeandAttendance/DailyViewElite' name='Daily View ELITE' exact component={TimeAttendanceElite}></PrivateRoute>
         
         {/*Payroll Menu*/}
@@ -323,6 +335,8 @@ const Routes = () => {
         <PrivateRoute path ='/Payroll/PayrollSettings' name = 'Payroll Settings' exact component ={PayrollSettings} ></PrivateRoute>
         <PrivateRoute path ='/Payroll/AgencyPayrollExport' name = 'Agency Payroll Export' exact component ={AgencyPayrollExportFile} ></PrivateRoute>
         <PrivateRoute path ='/Payroll/ElitePayrollExportFile' name = 'Payroll Export File' exact component ={ElitePayrollExportFile} ></PrivateRoute>
+        <PrivateRoute path='/Payroll/PayrollHistory' name='Payroll History' exact component={payrollChangesHistory}></PrivateRoute>
+
         {/* Reports Menu */}
         <PrivateRoute path='/Report/TraineePickPerformance' name='Trainee Pick Performance' type='Report' exact component={CCATraineePick}></PrivateRoute>
         <PrivateRoute path='/Report/DailyPickDashboard' name='Daily Pick Performance' type='Report' exact component={ CCADailyPick}></PrivateRoute>
@@ -412,10 +426,7 @@ const Routes = () => {
 
         <PrivateRoute path='/Report/TardinessReportPrint' name='TardinessReportPrint' type='Report' exact component={TardinessReportPrint}></PrivateRoute>
         <PrivateRoute path='/Report/TardinessReport' name='Tardiness Report' type='Report' exact component={TardinessReportTable}></PrivateRoute>
-
-
-
-
+        <PrivateRoute path='/Report/MakProductivityPickReport' name='Productivity Pick' type='Report' exact component={MakitaProductivityPicktable}></PrivateRoute>
 
         {/** RPFC Productivity Pick Report */}
         <PrivateRoute path='/Report/RPFCProductivityPickReport' name='Productivity Pick' type='Report' exact component={RPFCProdPickTable}></PrivateRoute>

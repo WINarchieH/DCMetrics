@@ -58,8 +58,8 @@ const ProductivityPackReport = () => {
         { Header: 'Total Hours', accessor: 'TotalHrs', modalType: 'textbox'},
         { Header: 'No Of Units', accessor: 'NoOfUnits', modalType: 'textbox' },
         { Header: 'No Of Packs', accessor: 'NoOfPack', modalType: 'textbox'},
-        { Header: 'Manager', accessor: 'TeamManager', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown' ,  FilterValue :manager, SetFilterValue : setManager },
         { Header: 'Packs Per hour', accessor: 'Units_Hr', modalType: 'textbox' },
+        { Header: 'Manager', accessor: 'TeamManager', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown' ,  FilterValue :manager, SetFilterValue : setManager },
         { Header: 'WH', accessor: 'WH',Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown' },
         { Header: 'Shift', accessor: 'Shift', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown' },
         { Header: 'RF Login', accessor: 'RFLogin', modalType: 'textbox' }

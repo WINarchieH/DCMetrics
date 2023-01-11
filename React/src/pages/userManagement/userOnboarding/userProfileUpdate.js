@@ -54,7 +54,7 @@ import Switch from '@material-ui/core/Switch';
 
 const useStyles = makeStyles({
     root: {
-        minWidth: 275,
+        minWidth: 350,
         maxWidth: 360,
         display: 'flex',
         justifyContent: 'center',
@@ -390,7 +390,7 @@ const updateHandler =  (event) => {
         <div className={classesGrid.root}>
             <Grid container spacing={3}>
                 <Grid item xs={4}>
-                    <Card variant="outlined" style={{ width: '300%', height: '100%' }}>
+                    <Card variant="outlined" style={{ width: '330%', height: '100%' }}>
                         <CardContent>
                             <CardContent>
                                 <Typography className={classes.title} color="textSecondary" gutterBottom>

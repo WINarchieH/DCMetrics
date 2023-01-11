@@ -351,8 +351,9 @@ const UserDetails =  () => {
     };
 
     const payrollChangesButtonHandler = async (data) => {
-        
+
         payrollchangesinput.UserID = data.UserID;
+        defaultpayrollChangesInput.UserID = data.UserID;
         setShowPayrollModal('');
 
         let body = new URLSearchParams({
@@ -362,12 +363,14 @@ const UserDetails =  () => {
         await api.post('/Maintenance/UserInfo/GetPayroll', body).then(
             res => {
                 let data = res.data;
-
+           
                 if(data == "") {
+                    
                     setpayrollchangesinput(defaultpayrollChangesInput);
                 }
                 else {
                     //Patch where data isn't properly picking up
+                    data.UserID = data.UserID
                     data.PaidOvertime = data.OvertimeAllowed;
                     data.LeadingHand = data.LeadingRateAllowed;
                     data.LeadingHandRate = data.LeadingRate;
@@ -867,7 +870,7 @@ const UserDetails =  () => {
 
     const clickPayrollChanges =  (event)=>{
         event.preventDefault();
-        
+        console.log(payrollchangesinput);
         /*
         prevent negatives
         */
@@ -915,7 +918,7 @@ const UserDetails =  () => {
         if(
             dateToDateObj(afternoonFromDate) > dateToDateObj(afternoonToDate)
         ) {
-            setpayrollchangesModalMessageError(`Error: Leading hand 'from' date must come before 'to' date`);
+            setpayrollchangesModalMessageError(`Error: Afternoon Allowance 'from' date must come before 'to' date`);
             setShowPayrollModal(true);
             return;
         }
@@ -1407,7 +1410,7 @@ const UserDetails =  () => {
                             </div>
 
                             <Toggle label='Allowed' checked={outputToBoolean(payrollchangesinput.LeadingHand)} onChange={leadingHandHandler}></Toggle>
-                            <TextField type="number" name='LeadingHandRate' label='Rate' value={payrollchangesinput.LeadingHandRate} onChange={handlePayrollchangesInputEvent} restrictions='number' required></TextField>
+                            <TextField type="number" name='LeadingHandRate' label='Rate'  value={payrollchangesinput.LeadingHandRate} onChange={handlePayrollchangesInputEvent} restrictions='number'  required></TextField>
                             
                             <div className='modal-item'>
                             <label className='label label--position' >Effective From</label>

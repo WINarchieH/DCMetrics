@@ -150,7 +150,7 @@ namespace DC4._0Backend.Controllers
             string sSQL = "select Usergroup from Usergroup where AccessLevel <= (Select AccessLevel  from Usergroup where Usergroup  = (Select UserGroup from UserLoginPermission where UserName ='" + user.Addedby + "' ))";
             try
             {
-                SqlCommand command = new SqlCommand(sSQL, conn);
+                SqlCommand command = new SqlCommand(sSQL, conn); 
                 SqlDataAdapter da = new SqlDataAdapter(command);
                 DataSet ds = new DataSet();
                 da.Fill(ds);

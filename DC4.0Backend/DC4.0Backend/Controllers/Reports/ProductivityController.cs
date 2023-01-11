@@ -70,7 +70,9 @@ namespace DC4._0Backend.Controllers.Reports
                     obj.NoOfOrders = ds.Tables[0].Rows[i]["NoOfOrders"].ToString();
                     obj.NoOfUnits = decimal.ToInt32(Convert.ToDecimal(ds.Tables[0].Rows[i]["NoOfUnits"].ToString())).ToString();
                     obj.NoOfLines = ds.Tables[0].Rows[i]["NoOfLines"].ToString();
-                    obj.Units_Hr = Math.Round( Convert.ToDouble(ds.Tables[0].Rows[i]["Units/Hr"].ToString()), 2); 
+                    obj.Units_Hr = Math.Round( Convert.ToDouble(ds.Tables[0].Rows[i]["Units/Hr"].ToString()), 2);
+                    obj.Line_hr = Math.Round(Convert.ToDouble(ds.Tables[0].Rows[i]["Lines/Hr"].ToString()), 2);
+                    obj.OrderType = ds.Tables[0].Rows[i]["OrderType"].ToString();
                     obj.WH = ds.Tables[0].Rows[i]["WH"].ToString();
                     
                     obj.TeamManager = ds.Tables[0].Rows[i]["TeamManager"].ToString();

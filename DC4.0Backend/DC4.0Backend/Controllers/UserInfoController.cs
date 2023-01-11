@@ -813,6 +813,13 @@ namespace DC4._0Backend.Controllers
         [HttpPost]
         public string ChangePayroll([FromBody]PayrollChange payrollChange)
         {
+            payrollChange.Salary = Convert.ToDecimal(payrollChange.Salary);
+            payrollChange.OrdinaryTime = Convert.ToDecimal(payrollChange.OrdinaryTime);
+            payrollChange.TimeAndHalf = Convert.ToDecimal(payrollChange.TimeAndHalf);
+            payrollChange.DoubleTime = Convert.ToDecimal(payrollChange.DoubleTime);
+            payrollChange.DoubleAndHalf = Convert.ToDecimal(payrollChange.DoubleAndHalf);
+            payrollChange.LeadingRate = Convert.ToDouble(payrollChange.LeadingRate);
+
             String sSQL = "INSERT INTO PermanentPayrollMakita_webversion(" +
             "UserID," +
             "Salary," +
@@ -901,12 +908,13 @@ namespace DC4._0Backend.Controllers
 
 
                 PayrollChange obj = new PayrollChange();
-                obj.Salary = Double.Parse(row["Salary"].ToString());
+                obj.UserID = row["UserID"].ToString();
+                obj.Salary = Convert.ToDecimal(row["Salary"]);
                 obj.OvertimeAllowed = row["OvertimeAllowed"].ToString();
-                obj.OrdinaryTime = Double.Parse(row["OrdinaryTime"].ToString());
-                obj.TimeAndHalf = Double.Parse(row["TimeAndHalf"].ToString());
-                obj.DoubleTime = Double.Parse(row["DoubleTime"].ToString());
-                obj.DoubleAndHalf = Double.Parse(row["DoubleAndHalf"].ToString());
+                obj.OrdinaryTime = Convert.ToDecimal(row["OrdinaryTime"]);
+                obj.TimeAndHalf = Convert.ToDecimal(row["TimeAndHalf"]);
+                obj.DoubleTime = Convert.ToDecimal(row["DoubleTime"]);
+                obj.DoubleAndHalf = Convert.ToDecimal(row["DoubleAndHalf"]);
                 obj.SEffectiveDate = Convert.ToDateTime(row["SEffectiveDate"]);
                 obj.SIneffectiveDate = Convert.ToDateTime(row["SIneffectiveDate"]);
                 obj.LeadingRate = Double.Parse(row["LeadingRate"].ToString());

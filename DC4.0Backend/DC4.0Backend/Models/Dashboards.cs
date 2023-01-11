@@ -27,7 +27,7 @@ namespace DC4._0Backend.Models
   
 
         public int[] Units { get; set; }
-
+        public int[] KPI { get; set; }
         public double[] UnitsPerHr { get; set; }
 
         public int[] PutawayUnits { get; set; }
@@ -35,6 +35,12 @@ namespace DC4._0Backend.Models
         public double[] PutawayPerHr { get; set; }
 
         public string[] PutawayUnitdates { get; set; }
+
+        public int[] palletshandled { get; set; }
+
+        public int[] caseshandled { get; set; }
+
+        public string[] AllUsers { get; set; }
 
 
     }
@@ -441,6 +447,8 @@ namespace DC4._0Backend.Models
         public string DCMUser { get; set; }
 
         public int[] Units { get; set; }
+        public int[] Pallets { get; set; }
+        public int[] PartPallets { get; set; }
     }
 
     public class Dashboard_PalletPicks //CCA
@@ -481,5 +489,33 @@ namespace DC4._0Backend.Models
         public string StartDate { get; set; }
 
         public string EndDate { get; set; }
+
+        public string Role { get; set; }
+    }
+
+    public class Dash_Pick_Lines
+    {
+
+       
+
+        public string Site { get; set; }
+        public string Role { get; set; }
+
+        public string[] DayShift_users { get; set; }
+
+        public int[] DayShift_lines { get; set; }
+        public int[] DayShift_KPI { get; set; }
+
+        public string[] AfternoonShift_users { get; set; }
+
+        public int[] AfternoonShift_lines { get; set; }
+
+        public int[] AfternoonShift_KPI { get; set; }
+
+        public string StartDate { get; set; }
+
+        public string EndDate { get; set; }
+
+        public string FullName { get; set; }
     }
 }

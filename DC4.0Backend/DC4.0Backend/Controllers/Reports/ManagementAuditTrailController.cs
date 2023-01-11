@@ -55,10 +55,15 @@ namespace DC4._0Backend.Controllers.Reports
 
                     obj.EditDateTime = Convert.ToDateTime(ds.Tables[0].Rows[i]["EditDate"].ToString());
                     obj.StartDateTime = Convert.ToDateTime(ds.Tables[0].Rows[i]["StartDateTime"].ToString());
-
+                   
 
                     obj.StartDate = obj.StartDateTime.ToString("dd/MM/yyyy");
                     obj.StartTime = obj.StartDateTime.ToString("HH:mm");
+
+                    obj.EndDate = Convert.ToDateTime(ds.Tables[0].Rows[i]["EndDatetime"]).ToString("dd/MM/yyyy");
+                    obj.EndTime = Convert.ToDateTime(ds.Tables[0].Rows[i]["EndDatetime"]).ToString("HH:mm");
+
+                    obj.Before_After = ds.Tables[0].Rows[i]["BeforeAfter"].ToString();
 
 
                     obj.EditDate = obj.EditDateTime.ToString("dd/MM/yyyy");

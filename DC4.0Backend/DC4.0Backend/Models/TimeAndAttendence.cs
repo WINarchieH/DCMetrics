@@ -51,6 +51,10 @@ namespace DC4._0Backend.Models
 
         public string TeamManager { get; set; }
 
+        public string AfternoonAllowance { get; set; }
+
+        public  string  ForceAddMealBreak  { get; set; }
+
 
 
 

@@ -43,11 +43,11 @@ namespace DC4._0Backend.Models
     public class PayrollChange
     {
         public string UserID { get; set; }
-        public double Salary { get; set; }
-        public double OrdinaryTime { get; set; }
-        public double TimeAndHalf { get; set; }
-        public double DoubleTime { get; set; }
-        public double DoubleAndHalf { get; set; }
+        public decimal Salary { get; set; }
+        public decimal OrdinaryTime { get; set; }
+        public decimal TimeAndHalf { get; set; }
+        public decimal DoubleTime { get; set; }
+        public decimal DoubleAndHalf { get; set; }
         public DateTime SEffectiveDate { get; set; }
         public DateTime SIneffectiveDate { get; set; }
         public double LeadingRate { get; set; }

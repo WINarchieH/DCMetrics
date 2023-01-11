@@ -41,8 +41,15 @@ namespace DC4._0Backend.Models
         public string FullName { get; set; }
         public string DCMUser { get; set; }
 
+        public string OrderType { get; set; }
+
         public int PalletsHandled { get; set; }
         public int PartPalletHandled { get; set; }
+
+        public double Line_hr { get; set; }
+
+
+
 
     }
 

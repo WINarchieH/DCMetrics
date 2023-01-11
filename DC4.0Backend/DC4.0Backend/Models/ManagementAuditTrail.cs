@@ -27,6 +27,13 @@ namespace DC4._0Backend.Models
         public string StartDate { get; set; }
 
         public string StartTime { get; set; }
+
+        public string EndDate { get; set; }
+
+        public string EndTime { get; set; }
+
+        public string Before_After { get; set; }
+
         public string EditDate { get; set; }
         public string EditTime { get; set; }
 

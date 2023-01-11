@@ -53,8 +53,8 @@ const ProductivityPutawayReport = () => {
         { Header: 'Total Time', accessor: 'TotalTime', modalType: 'textbox' },
         { Header: 'Total Hours', accessor: 'TotalHrs', modalType: 'textbox'},
         { Header: 'No Of Putaway', accessor: 'NoOfPutaway', modalType: 'textbox' },
-        { Header: 'No Of Units', accessor: 'NoOfUnits', modalType: 'textbox'},
         { Header: 'Putaway Per hour', accessor: 'Units_Hr', modalType: 'textbox' },
+        { Header: 'No Of Units', accessor: 'NoOfUnits', modalType: 'textbox'},
         { Header: 'Manager', accessor: 'TeamManager', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown',FilterValue :manager, SetFilterValue : setManager },     
         { Header: 'WH', accessor: 'WH',Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown' },
         { Header: 'Shift', accessor: 'Shift', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown' }

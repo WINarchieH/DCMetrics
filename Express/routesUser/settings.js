@@ -103,6 +103,22 @@ router.get('/Register/GetAllSites', (req, res) => {
         );
 });
 
+
+
+router.post('/Register/GetUserGroup', (req, res) => {
+    let data = req.body;
+    api.dc4.post('/DCMUser/GetUserGroup', data).then(
+        response => {
+            let output = response.data;
+          
+            res.send(output);
+        }).catch(
+            err => {
+                res.status('503').send({
+                    message: 'Failed to connect to server.'});
+            }
+        );
+});
 //FeedBack Form API
 
 router.post('/FeedBack/InsertFeedback', (req, res) => {
@@ -135,6 +151,8 @@ router.post('/Email/InsertNewSubscription', (req, res) => {
             }
         );
 });
+
+
 
 
 

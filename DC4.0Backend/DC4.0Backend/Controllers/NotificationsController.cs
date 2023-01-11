@@ -109,7 +109,7 @@ namespace DC4._0Backend.Controllers
                     {
                         // sSql = "delete from from NotificationModule where UserID = '"+not.UserID+"' and Module='" + modules[i]+"'";
 
-                        sSql = "  insert into NotificationModule values ('" + modules[i] + "' , '" + not.UserID + "','Y')";
+                        sSql = "  insert into NotificationModule(Module, UserID, Enabled) values ('" + modules[i] + "' , '" + not.UserID + "','Y')";
 
                         conn.ExecuteInsertQuery(sSql, not.Site);
                     }

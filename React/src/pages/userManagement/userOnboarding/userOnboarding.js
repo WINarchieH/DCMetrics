@@ -540,48 +540,23 @@ const UserOnboarding = () => {
         );
     };
 
-
     const ActionRowButton = (params) => {
+
         params.columnApi.autoSizeAllColumns();
-        if (params.data.EmployeeCategory != 'Casual') {
+        return (
 
-            return (
-
-                <React.Fragment>
-                        <Tooltip >
-                                <IconButton aria-label="Edit"  onClick = {()=>editTableHandler(params)} >
-                                <img height={30} width ={30} src={Edit}></img>
-                                </IconButton>
-                                </Tooltip>
-
-
-                    <Tooltip title="Assign Leave">
-                        <IconButton aria-label="assign leave" onClick={() => { assignLeaveButtonHandler(params.data) }}>
-                        <img height={30} width ={30} src={AssignleaveIcon}></img>
-                        </IconButton>
-                    </Tooltip>
-
-
-                </React.Fragment>
-
-
-            );
-        }
-        else
-        { 
-            return(
             <React.Fragment>
-            <Tooltip title="Edit">
-            <IconButton aria-label="Edit"  onClick = {()=>editTableHandler(params)} >
-            <img height={30} width ={30} src={Edit}></img>
-            </IconButton>
-            </Tooltip>            
-             </React.Fragment>
-             );
 
-        }
+             <Tooltip title="Edit">
+               <IconButton aria-label="Save"  onClick = {()=>editTableHandler(params)} >
+               <img width={30} height={30} src={Edit}></img>
+               </IconButton>
+            </Tooltip>
+            </React.Fragment>
+  
+        );
     };
-        
+
        const onGridReady = (params) => {
         setGridApi(params.api);
         setGridColumnApi(params.columnApi);
@@ -959,7 +934,7 @@ const UserOnboarding = () => {
    
      <div>
      <React.Fragment>
-                <Modal style={{width:'600px'}} title={modalTitle} showModal={showModal} unrestrictWidth={true}
+                <Modal style={{width:'650px'}} title={modalTitle} showModal={showModal} unrestrictWidth={true}
                     setShowModal={setShowModal} loadModal={loadModal} message={modalMessage} messageError={modalMessageError}>
 
                     <div className={classes.root}>
