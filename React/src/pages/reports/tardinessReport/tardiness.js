@@ -131,11 +131,12 @@ const Tardiness = () => {
     };
 
     useEffect(() => { // Update table on date filter change
-      
+      debugger
         if (checkValidInput(dateRange[0]) && checkValidInput(dateRange[1])) { // Only update table if valid dates
+           
             const startDateObj = inputToDateObj(dateRange[0]);
             const endDateObj = inputToDateObj(dateRange[1]);
-            if (startDateObj < currentDateRange.current[0] || endDateObj > currentDateRange.current[1]) {
+            if (startDateObj <= currentDateRange.current[0] || endDateObj > currentDateRange.current[1]) {
                 
                 //reseting the filter array after a date change
                 settype([]);
@@ -150,12 +151,13 @@ const Tardiness = () => {
 
     useEffect(() => { // Get table and Data
         // Default date range [today,today]
-        let today = new Date();
-        currentDateRange.current = [today, today];
-        today = dateObjToDate(today);
-
-        getTable(today, today);
-       // setDateRange([dateToInput(today), dateToInput(today)]); // Store current date range
+           // Default date range [today,today]
+           let today = new Date();
+           currentDateRange.current = [today, today];
+           today = dateObjToDate(today);
+           
+           getTable(today, today);
+           setDateRange([dateToInput(today), dateToInput(today)]); // Store current date range
     }, []);
 
     return (

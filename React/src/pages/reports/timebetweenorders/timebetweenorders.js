@@ -151,7 +151,7 @@ const TimeBetweenOrders = () => {
         today = dateObjToDate(today);
 
         getTable(today, today);
-       // setDateRange([dateToInput(today), dateToInput(today)]); // Store current date range
+        setDateRange([dateToInput(today), dateToInput(today)]); // Store current date range
     }, []);
 
     return (

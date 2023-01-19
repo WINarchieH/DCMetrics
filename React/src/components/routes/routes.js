@@ -221,6 +221,8 @@ import payrollChangesHistory from '../../pages/maintenance/payrollchangesHistory
 import MakitaPickDashboard from '../../pages/dashboard/Makita/DailyPickDashboard';
 import MakitaPutawayDashboard from '../../pages/dashboard/Makita/Putaway/DailyPutawayDashboard';
 import MakitaTimeandAttendence from '../../pages/timeAndAttendance/timeAttendance_Gridtest/Makita/timeAttendance';
+import MakitaUserTaskSummary from  '../../pages/reports/MakitaUserTaskSummaryReport/userTaskSummaryPrint';
+import CostPerLine from '../../pages/reports/costPerLine/costPerLine';
 
 
 
@@ -338,6 +340,7 @@ const Routes = () => {
         <PrivateRoute path='/Payroll/PayrollHistory' name='Payroll History' exact component={payrollChangesHistory}></PrivateRoute>
 
         {/* Reports Menu */}
+        <PrivateRoute path='/Report/CostPerLine' name='Cost Per Line' type='Report' exact component={CostPerLine}></PrivateRoute>
         <PrivateRoute path='/Report/TraineePickPerformance' name='Trainee Pick Performance' type='Report' exact component={CCATraineePick}></PrivateRoute>
         <PrivateRoute path='/Report/DailyPickDashboard' name='Daily Pick Performance' type='Report' exact component={ CCADailyPick}></PrivateRoute>
 
@@ -427,7 +430,7 @@ const Routes = () => {
         <PrivateRoute path='/Report/TardinessReportPrint' name='TardinessReportPrint' type='Report' exact component={TardinessReportPrint}></PrivateRoute>
         <PrivateRoute path='/Report/TardinessReport' name='Tardiness Report' type='Report' exact component={TardinessReportTable}></PrivateRoute>
         <PrivateRoute path='/Report/MakProductivityPickReport' name='Productivity Pick' type='Report' exact component={MakitaProductivityPicktable}></PrivateRoute>
-
+        <PrivateRoute path='/Report/MakUserTaskSummary' name='User Task Summary Report' type='Report' exact component={MakitaUserTaskSummary}></PrivateRoute>
         {/** RPFC Productivity Pick Report */}
         <PrivateRoute path='/Report/RPFCProductivityPickReport' name='Productivity Pick' type='Report' exact component={RPFCProdPickTable}></PrivateRoute>
 

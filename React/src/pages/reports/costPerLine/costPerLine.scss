@@ -1,0 +1,99 @@
+@import '../../../assets/modal';
+
+$modal-background: #FFFFFF;
+$modal-background-colour: #D8D8D8;
+$modal-width: 275px;
+$max-modal-width: 90vw;
+$modal-height: 85vh;
+$form-width: 260px;
+
+.report-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
+    padding-top: 30px;    
+}
+
+
+
+
+
+.modal-form {
+    width: $form-width;
+    overflow: auto;
+}
+
+.modal-form--max-width {
+    max-width: $max-modal-width;;
+    overflow-y: auto;
+}
+
+.modal-background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: $modal-background-colour;
+    opacity: 0.7;
+    z-index: 99;
+}
+
+.modal-container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $modal-background;
+    border: 1px solid #D8D8D8;
+    border-radius: 10px;
+    // width: $modal-width;
+    max-height: $modal-height;
+    z-index: 100;
+}
+
+.modal-container--hide {
+    display: none;
+}
+
+.modal-container--display {
+    // margin: 0px 25px 0px 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding:30px 40px 30px 40px;
+}
+
+.modal-title {
+    margin: 10px 0px;
+}
+
+.modal-button--styling {
+    width: 100%;
+}
+
+.modal-item--error {
+    color: $error-colour;
+}
+
+.modal-item--success {
+    color: $success-colour;
+}
+
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    background-color: $modal-background;
+}
+
+.close-button:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
