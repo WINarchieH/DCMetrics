@@ -223,6 +223,7 @@ import MakitaPutawayDashboard from '../../pages/dashboard/Makita/Putaway/DailyPu
 import MakitaTimeandAttendence from '../../pages/timeAndAttendance/timeAttendance_Gridtest/Makita/timeAttendance';
 import MakitaUserTaskSummary from  '../../pages/reports/MakitaUserTaskSummaryReport/userTaskSummaryPrint';
 import CostPerLine from '../../pages/reports/costPerLine/costPerLine';
+import UserInformation from '../../pages/maintenance/userDetails/Makita/userInformation';
 
 
 
@@ -256,10 +257,10 @@ const Routes = () => {
 
         {/* Maintenance Menu */}
         
-        <PrivateRoute path ='/Maintenance/ReasonCode' name='Reason Code' exact component={ReasonCode}>  </PrivateRoute>
-        <PrivateRoute path ='/Maintenance/EmailAlert' name='Email Notifications' exact component={EmailAlert}>  </PrivateRoute>
-        <PrivateRoute path ='/Maintenance/MaintainIndirectActivity' name='Maintain Indirect Activity' exact component={MaintainIndirectActivity}>  </PrivateRoute>   
-        <PrivateRoute path ='/Maintenance/MaintainDirectActivity' name='Maintain Direct Activity' exact component={MaintainDirectActivity}>  </PrivateRoute>   
+        <PrivateRoute path='/Maintenance/ReasonCode' name='Reason Code' exact component={ReasonCode}>  </PrivateRoute>
+        <PrivateRoute path='/Maintenance/EmailAlert' name='Email Notifications' exact component={EmailAlert}>  </PrivateRoute>
+        <PrivateRoute path='/Maintenance/MaintainIndirectActivity' name='Maintain Indirect Activity' exact component={MaintainIndirectActivity}>  </PrivateRoute>   
+        <PrivateRoute path='/Maintenance/MaintainDirectActivity' name='Maintain Direct Activity' exact component={MaintainDirectActivity}>  </PrivateRoute>   
         <PrivateRoute path='/Maintenance/TeamManager' name='Team Manager' exact component={TeamManager}></PrivateRoute>
         <PrivateRoute path='/Maintenance/Leave' name='Leave' exact component={Leave}></PrivateRoute>
         <PrivateRoute path='/Maintenance/PublicHoliday' name='Public Holiday' exact component={PublicHoliday}></PrivateRoute>
@@ -276,7 +277,7 @@ const Routes = () => {
         <PrivateRoute path ='/Maintenance/safetyCommitteeInspectionChecklist' name='Safety Inspection Checklist' exact component={SafetyCommitteeInspectionChecklist}></PrivateRoute>
         <PrivateRoute path='/Maintenance/Errors' name='Errors' exact component={errors}></PrivateRoute>
         <PrivateRoute path='/Maintenance/UsergroupManagement' name='User Group Management' exact component={UserGroupManagement}></PrivateRoute>
-
+        <PrivateRoute path='/Maintenance/UserInformation' name='User Information' exact component={UserInformation}></PrivateRoute>
 
         {/* User Management Menu */}
         <PrivateRoute path='/UserManagement/UserOnboarding' name='User Onboarding' exact component={UserOnboarding}></PrivateRoute>

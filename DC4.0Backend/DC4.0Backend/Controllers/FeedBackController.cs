@@ -34,19 +34,28 @@ namespace DC4._0Backend.Controllers
             {
 
 
-                sSQL = "Insert into Feedback(UserName,Module,Description) values('" + feedBack.UserName + "','" + feedBack.Module + "','" + feedBack.Description + "')";
+                sSQL = "Insert into Feedback(UserName,Module,Description) values(@UserName,@Module,@Description)";
 
                 SqlCommand sqlCommand = new SqlCommand(sSQL, conn);
+                sqlCommand.Parameters.AddWithValue("@UserName", feedBack.UserName);
+                sqlCommand.Parameters.AddWithValue("@Module", feedBack.Module);
+                sqlCommand.Parameters.AddWithValue("@Description", feedBack.Description);
 
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand);
-                DataSet ds = new DataSet();
-                sqlDataAdapter.Fill(ds);
+
+                conn.Open();
+                sqlCommand.ExecuteNonQuery();
+
+
 
             }
             catch (Exception ex)
             {
                 return "Error Occured while Entering the User:" + ex.Message;
 
+            }
+            finally
+            {
+                conn.Close();
             }
 
 

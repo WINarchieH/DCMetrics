@@ -804,6 +804,7 @@ const UserDetails =  () => {
     
     const clickAssignLeave =  (event)=>{
 
+        
         event.preventDefault();
         leaveInput.startDate = leaveStartDate;
         leaveInput.EndDate = leaveEndDate;
@@ -829,6 +830,8 @@ const UserDetails =  () => {
             }
         }
 
+       
+   
         let body = new URLSearchParams({
                'EffectiveDate': leaveStartDate,
                'IneffectiveDate':leaveEndDate,

@@ -415,7 +415,7 @@ const updateHandler =  (event) => {
                                 <Toggle label='Part Time' checked={outputToBoolean(input.PartTime)} onChange={partTimeHandler}></Toggle>
                             </div>
                             <div style={{width:'100%'}}>
-                                <Button variant="contained" color="primary" style={{width:'100%', marginTop: '20px' }} onClick={updateHandler} >Update</Button>
+                                <Button variant="contained" color="primary" style={{width:'100%', marginTop: '20px', backgroundColor:'rgb(35,168,224)' }} onClick={updateHandler} >Update</Button>
                             </div>
                              
                                 </Typography>

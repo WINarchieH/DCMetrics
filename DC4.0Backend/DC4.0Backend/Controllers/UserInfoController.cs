@@ -955,6 +955,10 @@ namespace DC4._0Backend.Controllers
             string UserStartTime = string.Empty;
             string UserEndTime = string.Empty;
 
+          
+            leave.FromDate = leave.EffectiveDate;
+            leave.ToDate = leave.IneffectiveDate;
+
             int approvedrecords = 0;
             int totalrecords = 0;
            

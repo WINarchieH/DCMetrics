@@ -352,6 +352,8 @@ namespace DC4._0Backend.Controllers
                 {
                     time.OTAtEnd = "";
                 }
+
+
                 //WriteAudit(time, "Before_Insert");
                 // insert time and attendance record
                 sSQL = "Insert Into BundyClock (UserID,ShiftCode,DeptCode,StartDateTime,EndDateTime,MealAllowance,CalledBack,ReasonForUpdate,UpdateBy,OvertimeException,AllowOTatStart,AllowOTatEnd) Select '" + time.UserID + "',(Select ShiftCode from UserInfo Where UserID = '" + time.UserID + "'),(Select DeptCode from UserInfo Where UserID = '" + time.UserID + "'),Convert(DateTime,'" + time.StartDate + " " + time.StartTime + "',103),Convert(DateTime,'" + time.EndDate + " " + time.EndTime + "',103),'"+ time.MealAllowance +"','"+ time.CallBack +"','"+ time.ReasonForUpdate+"','"+ time.UpdateBy +"','"+time.OTException+"','"+time.OTAtStart+"','"+time.OTAtEnd+"'";
@@ -590,11 +592,11 @@ namespace DC4._0Backend.Controllers
             {
 
                 sSql_Audit = " INSERT INTO BundyClock_Audit (UserID, ShiftCode,DeptCode,StartDateTime,EndDateTime,MealAllowance,ReasonForUpdate,UpdateBy " +
-          " , AddDate, CalledBack,OverTimeException,Leave,Approve,Decline,AllowOTatStart,AllowOTatEnd,BeforeAfter,UpdatedBy_Audit) " +
+          " , AddDate, CalledBack,OverTimeException,Leave,Approve,Decline,AllowOTatStart,AllowOTatEnd,BeforeAfter,UpdatedBy_Audit,AfternoonAllowance) " +
             " SELECT UserID, ShiftCode,DeptCode,StartDateTime,EndDateTime,MealAllowance,ReasonForUpdate,UpdateBy " +
              " , GETDATE(), CalledBack,OverTimeException,Leave,Approve,Decline,AllowOTatStart,AllowOTatEnd " +
            " ,'" + BeforeAfter + "','" + user.UpdateBy + "'" +
-             " FROM BundyClock " +
+             ", AfternoonAllowance  FROM BundyClock " +
           " WHERE ID = '" +user.ID+ "' ";
 
                string result =  conn.ExecuteInsertQuery(sSql_Audit, user.Site);
@@ -607,8 +609,29 @@ namespace DC4._0Backend.Controllers
             }
         }
 
+        private void WriteAudit_AfterAdd(TimeAndAttendence time, string BeforeAfter)
+        {
+            Connection conn = new Connection();
+            string sSql_Audit = "";
+            try
+            {
 
-       
+                sSql_Audit = "Insert Into BundyClock_Audit (UserID,ShiftCode,DeptCode,StartDateTime,EndDateTime,ReasonForUpdate,UpdateBy,AddDate,OvertimeException,AllowOTatStart,AllowOTatEnd, ForceAddMealBreak, BeforeAfter, AfternoonAllowance )" +
+                    " Select '" + time.UserID + "',(Select ShiftCode from UserInfo Where UserID = '" + time.UserID + "'),(Select DeptCode from UserInfo Where UserID = '" + time.UserID + "'),Convert(DateTime,'" + time.StartDate + " " + time.StartTime + "',103), Convert(DateTime,'" + time.EndDate + " " + time.EndTime + "',103), " +
+                   "'" + time.ReasonForUpdate + "','" + time.UpdateBy + "',GETDATE(),'" + time.OTException + "','" + time.OTAtStart + "','" + time.OTAtEnd + "', '" + time.ForceAddMealBreak + "', '"+BeforeAfter+"', '"+time.AfternoonAllowance+"'" ;
+
+                string result = conn.ExecuteInsertQuery(sSql_Audit, time.Site);
+
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+        }
+
+
+
 
 
         // ELITE TIME AND ATTENDANCE FUNCTIONS START HERE
@@ -805,7 +828,7 @@ namespace DC4._0Backend.Controllers
                            "and CONVERT(date, StartDate, 103) = Convert(Date,'" + time.StartDate + "',103) and ManualLongBreakStart = '00:00'";
 
 
-                    if (connection.ReturnSingleValue(sSQL, time.Site).Equals("00:00"))
+                    if (!(connection.ReturnSingleValue(sSQL, time.Site).Equals("00:00")))
                     {
                         return "User has scanned for long break already. Please Uncheck Add Break CheckBox.";
                     }
@@ -821,8 +844,8 @@ namespace DC4._0Backend.Controllers
                     }
                 }
 
-                //WriteAudit(time, "Before_Insert");
-                // insert time and attendance record
+              
+                    // insert time and attendance record
                 sSQL = "Insert Into BundyClock (UserID,ShiftCode,DeptCode,StartDateTime,EndDateTime,MealAllowance,CalledBack,ReasonForUpdate,UpdateBy,OvertimeException,AllowOTatStart,AllowOTatEnd, ForceAddMealBreak ) Select '" + time.UserID + "',(Select ShiftCode from UserInfo Where UserID = '" + time.UserID + "'),(Select DeptCode from UserInfo Where UserID = '" + time.UserID + "'),Convert(DateTime,'" + time.StartDate + " " + time.StartTime + "',103),Convert(DateTime,'" + time.EndDate + " " + time.EndTime + "',103),'" + time.MealAllowance + "','" + time.CallBack + "','" + time.ReasonForUpdate + "','" + time.UpdateBy + "','" + time.OTException + "','" + time.OTAtStart + "','" + time.OTAtEnd + "', '"+time.ForceAddMealBreak+"'";
                 try
                 {
@@ -835,7 +858,10 @@ namespace DC4._0Backend.Controllers
                 {
                     return "Time and Attendence Entry Insertion Failed";
                 }
-                //WriteAudit(time, "After_Insert");
+                if (!(String.IsNullOrEmpty(time.ReasonForUpdate)))
+                {
+                    WriteAudit_AfterAdd(time, "After_Add");
+                }
                 result = "Time and Attendance Transaction has been added successfully!";
 
             }
@@ -928,11 +954,11 @@ namespace DC4._0Backend.Controllers
                     sSQL = "select ManualLongBreakStart from TimeInfoByUser where UserID  = '" + time.UserID + "' " +
                            "and CONVERT(date, StartDate, 103) = Convert(Date,'" + time.StartDate + "',103) and ManualLongBreakStart = '00:00'";
 
-
-                    if (conn.ReturnSingleValue(sSQL, time.Site).Equals("00:00"))
+                    if (!(conn.ReturnSingleValue(sSQL, time.Site).Equals("00:00")))
                     {
                         return "User has scanned for long break already. Please Uncheck Add Break CheckBox.";
                     }
+
 
                 }
 

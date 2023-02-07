@@ -50,6 +50,12 @@ namespace DC4._0Backend.Models
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
 
+        public DateTime LeaveStartDate { get; set; }
+        public DateTime LeaveEndDate { get; set; }
+
+        public DateTime EffectiveDate { get; set; }
+        public DateTime IneffectiveDate { get; set; }
+
         public string StartTime { get; set; }
         public string EndTime { get; set; }
 

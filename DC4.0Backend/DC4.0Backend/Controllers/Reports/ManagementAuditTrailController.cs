@@ -69,6 +69,11 @@ namespace DC4._0Backend.Controllers.Reports
                     obj.EditDate = obj.EditDateTime.ToString("dd/MM/yyyy");
                     obj.EditTime = obj.EditDateTime.ToString("HH:mm");
                     obj.UserRole = ds.Tables[0].Rows[i]["UserRole"].ToString();
+                    obj.AfternoonAllowance = ds.Tables[0].Rows[i]["AfternoonAllowance"].ToString();
+                    obj.AllowOTAtStart = ds.Tables[0].Rows[i]["AllowOTatStart"].ToString();
+                    obj.AllowOTAtEnd = ds.Tables[0].Rows[i]["AllowOTatEnd"].ToString();
+                    obj.OvertimeException = ds.Tables[0].Rows[i]["OverTiAmeException"].ToString();
+                    obj.MealBreak = ds.Tables[0].Rows[i]["ForceAddMealBreak"].ToString();
                     reports.Add(obj);
 
                 }

@@ -42,5 +42,14 @@ namespace DC4._0Backend.Models
 
         public string Comment { get; set; }
 
+        public string AllowOTAtStart { get; set; }
+
+        public string AllowOTAtEnd { get; set; }
+
+        public string AfternoonAllowance { get; set; }
+
+        public string MealBreak { get; set; }
+
+        public string OvertimeException { get; set; }
     }
 }

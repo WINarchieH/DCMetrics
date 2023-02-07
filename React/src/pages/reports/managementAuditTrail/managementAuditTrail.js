@@ -27,7 +27,7 @@ const CasualReverseBillingReport = () => {
     const [dateChangeIndicator, setDateChangeIndicator] = useState('');
 
     const tableColumns = [
-        { Header: 'Employee ID', accessor: 'EmployeeID', modalType: 'textbox' },
+        
         { Header: 'Full Name', accessor: 'FullName', modalType: 'textbox' },
         { Header: 'Start Date', accessor: 'StartDate', Filter: SelectDateRange, filter: 'date', Cell: DateCell, FilterValue: dateRange, SetFilterValues: setDateRange, setExtra: setDateChangeIndicator },
         { Header: 'Start Time', accessor: 'StartTime', modalType: 'textbox' },
@@ -36,12 +36,13 @@ const CasualReverseBillingReport = () => {
         { Header: 'Edit Time', accessor: 'EditTime', modalType: 'textbox' },
         { Header: 'Authorized By', accessor: 'UpdateBy', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown'},
         { Header: 'Before/After', accessor: 'Before_After', modalType: 'textbox' },
+        { Header: 'Afternoon Allowance', accessor: 'AfternoonAllowance', modalType: 'textbox' },
+        { Header: 'Start OT', accessor: 'AllowOTatStart', modalType: 'textbox' },
+        { Header: 'End OT', accessor: 'AllowOTatEnd', modalType: 'textbox' },
+        { Header: 'NO OT', accessor: 'OverTimeException', modalType: 'textbox' },
+        { Header:'Meal Break', accessor: 'ForceAddMealBreak', modalType: 'textbox' },
         { Header: 'Comment', accessor: 'Comment', modalType: 'textbox' },
-        { Header: 'User Role', accessor: 'UserRole', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown'},
-        { Header: 'Team Manager', accessor: 'TeamManager', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown'},
-        { Header: 'Shift', accessor: 'Shift', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown'}
-        
-     
+
     ];
 
     const getTable = async (fromDate, toDate) => { // TODO: API Request for table
