@@ -284,6 +284,7 @@
     <Compile Include="Controllers\Reports\TimeSheetController.cs" />
     <Compile Include="Controllers\Reports\TimeVActivityController.cs" />
     <Compile Include="Controllers\Reports\UserTaskSummaryController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SafetyIncidentsController.cs" />
     <Compile Include="Controllers\SafetyInspectionChecklistController.cs" />
     <Compile Include="Controllers\ShiftDetailsController.cs" />

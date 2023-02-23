@@ -32,7 +32,7 @@ namespace DC4._0Backend.Models
         public string Status { get; set; }
         public string FromDate { get; set; }
         public string ToDate { get; set; }
-
+        public string EmployeeCategory { get; set; }
         public string DCMUser { get; set; }
     }
 }

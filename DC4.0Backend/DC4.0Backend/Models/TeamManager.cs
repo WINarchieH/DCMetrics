@@ -26,7 +26,15 @@ namespace DC4._0Backend.Models
         public string Site { get; set; }
         public string DCMUser { get; set; }
     }
+    public class Roles
+    {
 
+
+
+        public string UserRole { get; set; }
+        public string Site { get; set; }
+        public string DCMUser { get; set; }
+    }
 
 
     public class EmailNotification

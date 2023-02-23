@@ -111,7 +111,7 @@ namespace DC4._0Backend.Controllers
                         Logging.WriteLog(reason.Site, "Error", "Reason", "InsertNewReason", query.Replace("'", "''"), 3001, reason.DCMUser);
                     }
                     catch (Exception e) { }
-                    return "Error Occured while creating new manager:" + ex.Message;
+                    return "Error Occured while creating new reason code:" + ex.Message;
                 }
 
                 return "New Reason Added into the DCMetrics";
@@ -160,7 +160,7 @@ namespace DC4._0Backend.Controllers
                     }
                     catch (Exception e) { }
 
-                    return "Error Occured while deleting the manager:" + ex.Message;
+                    return "Error Occured while deleting the reason code:" + ex.Message;
                 }
 
                 return "Reason deleted from the DCMetrics";

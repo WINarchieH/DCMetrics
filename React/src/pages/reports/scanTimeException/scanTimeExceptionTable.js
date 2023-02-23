@@ -35,14 +35,13 @@ const ScanTimeExceptionReport = () => {
         { Header: 'Start Date', accessor: 'StartDate', Filter: SelectDate, filter: 'dateFrom', modalType: 'textbox', Cell: DateCell, FilterValue: startDate, SetFilterValue: setStartDate, sortType: orderDatetime},
         { Header: 'Start Time', accessor: 'StartTime', modalType: 'textbox' },
         { Header: 'End Date', accessor: 'EndDate',  Filter: SelectDate, filter: 'dateTo', modalType: 'textbox', Cell: DateCell, FilterValue: endDate, SetFilterValue: setEndDate, sortType: orderDatetime},
-  
-        { Header: 'End Time', accessor: 'EndTime', modalType: 'textbox' },
+        { Header: 'End Time', accessor: 'EndTime', modalType: 'textbox' },  
+        { Header: 'From Location', accessor: 'FromLocation', modalType: 'textbox' },
+        { Header: 'To Location', accessor: 'ToLocation', modalType: 'textbox' },
         { Header: 'Product Code', accessor: 'ProductCode', modalType: 'textbox'},
         { Header: 'Pick Quantity', accessor: 'PickQuantity', modalType: 'textbox'},
-        { Header: 'Shift', accessor: 'Shift', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown'},
         { Header: 'Manager', accessor: 'TeamManager',Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown' },
         { Header: 'Shift Code', accessor: 'ShiftCode',Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown' },
-        { Header: 'ShiftType', accessor: 'ShiftType',Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown' }
     ];
 
     const getTable = async (fromDate, toDate) => { // TODO: API Request for table

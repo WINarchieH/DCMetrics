@@ -34,5 +34,9 @@ namespace DC4._0Backend.Models
         public string TeamManager { get; set; }
 
         public string DCMUser { get; set; }
+        public string FromLocation { get; set; }
+
+        public string ToLocation { get; set; }
+        
     }
 }

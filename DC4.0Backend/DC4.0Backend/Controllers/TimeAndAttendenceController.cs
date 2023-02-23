@@ -102,6 +102,7 @@ namespace DC4._0Backend.Controllers
             Connection conn = new Connection();
             string sSQL = string.Empty;
             string result = string.Empty;
+            string enddatetime = null;
             try
             {
                 //checking for the Leave first
@@ -595,7 +596,7 @@ namespace DC4._0Backend.Controllers
           " , AddDate, CalledBack,OverTimeException,Leave,Approve,Decline,AllowOTatStart,AllowOTatEnd,BeforeAfter,UpdatedBy_Audit,AfternoonAllowance) " +
             " SELECT UserID, ShiftCode,DeptCode,StartDateTime,EndDateTime,MealAllowance,ReasonForUpdate,UpdateBy " +
              " , GETDATE(), CalledBack,OverTimeException,Leave,Approve,Decline,AllowOTatStart,AllowOTatEnd " +
-           " ,'" + BeforeAfter + "','" + user.UpdateBy + "'" +
+           " ,'" + BeforeAfter + "',(Select FirstName + ' '+ SurName From [DCM_Access].[dbo].[UserLoginPermission] Where UserName = '" + user.UpdateBy + "' )" +
              ", AfternoonAllowance  FROM BundyClock " +
           " WHERE ID = '" +user.ID+ "' ";
 
@@ -618,7 +619,7 @@ namespace DC4._0Backend.Controllers
 
                 sSql_Audit = "Insert Into BundyClock_Audit (UserID,ShiftCode,DeptCode,StartDateTime,EndDateTime,ReasonForUpdate,UpdateBy,AddDate,OvertimeException,AllowOTatStart,AllowOTatEnd, ForceAddMealBreak, BeforeAfter, AfternoonAllowance )" +
                     " Select '" + time.UserID + "',(Select ShiftCode from UserInfo Where UserID = '" + time.UserID + "'),(Select DeptCode from UserInfo Where UserID = '" + time.UserID + "'),Convert(DateTime,'" + time.StartDate + " " + time.StartTime + "',103), Convert(DateTime,'" + time.EndDate + " " + time.EndTime + "',103), " +
-                   "'" + time.ReasonForUpdate + "','" + time.UpdateBy + "',GETDATE(),'" + time.OTException + "','" + time.OTAtStart + "','" + time.OTAtEnd + "', '" + time.ForceAddMealBreak + "', '"+BeforeAfter+"', '"+time.AfternoonAllowance+"'" ;
+                   "'" + time.ReasonForUpdate + "',(Select FirstName + ' '+ SurName From [DCM_Access].[dbo].[UserLoginPermission] Where UserName = '" + time.UpdateBy + "' ),GETDATE(),'" + time.OTException + "','" + time.OTAtStart + "','" + time.OTAtEnd + "', '" + time.ForceAddMealBreak + "', '"+BeforeAfter+"', '"+time.AfternoonAllowance+"'" ;
 
                 string result = conn.ExecuteInsertQuery(sSql_Audit, time.Site);
 
@@ -650,7 +651,7 @@ namespace DC4._0Backend.Controllers
 
             string sSQL = String.Empty;
 
-            sSQL = " Select bc.UserID, ui.FirstName, ui.Surname,ui.TeamManager, bc.ShiftCode,Convert(char(10), bc.StartDateTime, 103)'StartDate'," +
+            sSQL = " Select bc.UserID, ui.FirstName, ui.Surname, ui.FirstName+' '+ui.Surname 'Name',ui.TeamManager,IsNull(ui.EmployeeCategory, '')'EmployeeCategory', bc.ShiftCode,Convert(char(10), bc.StartDateTime, 103)'StartDate'," +
                    "Convert(char(8), Convert(varchar, bc.StartDateTime, 114), 103)'StartTime',Convert(char(10), bc.EndDateTime, 103)'EndDate',Convert(char(8)," +
                    "Convert(varchar, bc.EndDateTime, 114), 103)'EndTime',ISNULL(tiu.ManualUserClockInTime, '') 'ShiftStart', ISNULL(tiu.ManualUserClockOutTime, '')" +
                    "'ShiftEnd',IsNull(bc.Approve, '') 'Approved', IIF(bc.ReasonForUpdate in (Select LeaveCode FROM Leave), (SELECT DISTINCT top 1 LeaveDesc FROM Leave Where bc.ReasonForUpdate = LeaveCode)," +
@@ -713,8 +714,10 @@ namespace DC4._0Backend.Controllers
                         obj.UserID = ds.Tables[0].Rows[i]["UserID"].ToString();
                         obj.FirstName = ds.Tables[0].Rows[i]["FirstName"].ToString();
                         obj.SurName = ds.Tables[0].Rows[i]["Surname"].ToString();
+                        obj.FullName = ds.Tables[0].Rows[i]["Name"].ToString();
+                        obj.EmployeeCategory = ds.Tables[0].Rows[i]["EmployeeCategory"].ToString();
                         obj.ShiftCode = ds.Tables[0].Rows[i]["ShiftCode"].ToString();
-                       obj.ShiftType = ds.Tables[0].Rows[i]["ShiftCode"].ToString().Substring(0, 1);
+                        obj.ShiftType = ds.Tables[0].Rows[i]["ShiftCode"].ToString().Substring(0, 1);
                         obj.StartDate = ds.Tables[0].Rows[i]["StartDate"].ToString();
                         obj.StartTime = ds.Tables[0].Rows[i]["StartTime"].ToString();
                         obj.EndDate = ds.Tables[0].Rows[i]["EndDate"].ToString();
@@ -763,6 +766,7 @@ namespace DC4._0Backend.Controllers
 
             Connection connection = new Connection();
             string result = string.Empty;
+            string enddatetime = null;
 
             try
             {
@@ -844,9 +848,17 @@ namespace DC4._0Backend.Controllers
                     }
                 }
 
-              
+                if (!(time.EndTime.Equals("")))
+                {
+                    enddatetime = "Convert(DateTime,'" + time.EndDate + " " + time.EndTime + "',103)";
+                }
+                else
+                {
+                    enddatetime = "NULL";
+                        }
                     // insert time and attendance record
-                sSQL = "Insert Into BundyClock (UserID,ShiftCode,DeptCode,StartDateTime,EndDateTime,MealAllowance,CalledBack,ReasonForUpdate,UpdateBy,OvertimeException,AllowOTatStart,AllowOTatEnd, ForceAddMealBreak ) Select '" + time.UserID + "',(Select ShiftCode from UserInfo Where UserID = '" + time.UserID + "'),(Select DeptCode from UserInfo Where UserID = '" + time.UserID + "'),Convert(DateTime,'" + time.StartDate + " " + time.StartTime + "',103),Convert(DateTime,'" + time.EndDate + " " + time.EndTime + "',103),'" + time.MealAllowance + "','" + time.CallBack + "','" + time.ReasonForUpdate + "','" + time.UpdateBy + "','" + time.OTException + "','" + time.OTAtStart + "','" + time.OTAtEnd + "', '"+time.ForceAddMealBreak+"'";
+                sSQL = "Insert Into BundyClock (UserID,ShiftCode,DeptCode,StartDateTime,EndDateTime,MealAllowance,CalledBack,ReasonForUpdate,UpdateBy,OvertimeException,AllowOTatStart,AllowOTatEnd, ForceAddMealBreak ) " +
+                    "   Select '" + time.UserID + "',(Select ShiftCode from UserInfo Where UserID = '" + time.UserID + "'),(Select DeptCode from UserInfo Where UserID = '" + time.UserID + "'),Convert(DateTime,'" + time.StartDate + " " + time.StartTime + "',103),"+enddatetime+",'" + time.MealAllowance + "','" + time.CallBack + "','" + time.ReasonForUpdate + "',(Select FirstName + ' '+ SurName From [DCM_Access].[dbo].[UserLoginPermission] Where UserName = '"+time.UpdateBy+"' ),'"+time.OTException + "','" + time.OTAtStart + "','" + time.OTAtEnd + "', '"+time.ForceAddMealBreak+"'";
                 try
                 {
                     Logging.WriteLog(time.Site, "Info", "TimeAndAttendence", "AddAttendance", sSQL.Replace("'", "''"), 1001, time.UpdateBy);
@@ -947,7 +959,6 @@ namespace DC4._0Backend.Controllers
 
                 if (time.ForceAddMealBreak.Equals("Y"))
 
-
                 {
 
 
@@ -971,11 +982,21 @@ namespace DC4._0Backend.Controllers
                     }
                 }
 
+                if (time.EndTime.Equals(""))
+                {
+                    EndDateTime = "NULL";
+                }
+                else
+                {
+                    EndDateTime = "Convert(DateTime, '" + time.EndDate + " " + time.EndTime + "', 103)";
+
+                }
+
                 //string UpdateByName = conn.ReturnSingleValue("Select FirstName+' '+ Surname from UserInfo where UserID = '" + time.UpdateBy + "' ", time.Site);
                 WriteAudit_Makita(time, "Before_Update");
 
-                sSQL = "Update BundyClock Set  StartDateTime = Convert(DateTime,'" + StartDateTime + "',103), EndDateTime = Convert(DateTime,'" + EndDateTime + "',103), MealAllowance = '" + time.MealAllowance + "', CalledBack = '" + time.CallBack + "',"
-                       + "ReasonForUpdate = '" + time.ReasonForUpdate + "', UpdateBy = '" + time.UpdateBy + "', EditDate = GetDate(), OvertimeException = '" + time.OTException + "' ,AllowOTatStart = '" + time.OTAtStart + "', AllowOTatEnd = '" + time.OTAtEnd + "', AfternoonAllowance = '"+time.AfternoonAllowance+"', ForceAddMealBreak = '"+time.ForceAddMealBreak+"' Where ID = " + time.ID + " And UserID = '" + time.UserID + "'";
+                sSQL = "Update BundyClock Set  StartDateTime = Convert(DateTime,'" + StartDateTime + "',103), EndDateTime = "+EndDateTime+", MealAllowance = '" + time.MealAllowance + "', CalledBack = '" + time.CallBack + "',"
+                       + "ReasonForUpdate = '" + time.ReasonForUpdate + "', UpdateBy = (Select FirstName + ' '+ SurName From [DCM_Access].[dbo].[UserLoginPermission] Where UserName = '" + time.UpdateBy + "') , EditDate = GetDate(), OvertimeException = '" + time.OTException + "' ,AllowOTatStart = '" + time.OTAtStart + "', AllowOTatEnd = '" + time.OTAtEnd + "', AfternoonAllowance = '"+time.AfternoonAllowance+"', ForceAddMealBreak = '"+time.ForceAddMealBreak+"' Where ID = " + time.ID + " And UserID = '" + time.UserID + "'";
 
                 try
                 {
@@ -1021,7 +1042,7 @@ namespace DC4._0Backend.Controllers
           " , AddDate, CalledBack,OverTimeException,Leave,Approve,Decline,AllowOTatStart,AllowOTatEnd,ForceAddMealBreak, AfternoonAllowance,BeforeAfter,UpdatedBy_Audit) " +
             " SELECT UserID, ShiftCode,DeptCode,StartDateTime,EndDateTime,MealAllowance,ReasonForUpdate,UpdateBy " +
              " , GETDATE(), CalledBack,OverTimeException,Leave,Approve,Decline,AllowOTatStart,AllowOTatEnd, ForceAddMealBreak, AfternoonAllowance " +
-           " ,'" + BeforeAfter + "','" + user.UpdateBy + "'" +
+           " ,'" + BeforeAfter + "', (Select FirstName + ' '+ SurName From [DCM_Access].[dbo].[UserLoginPermission] Where UserName = '" + user.UpdateBy + "' )" +
              " FROM BundyClock " +
           " WHERE ID = '" + user.ID + "' ";
 

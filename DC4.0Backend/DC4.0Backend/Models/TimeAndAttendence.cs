@@ -55,6 +55,11 @@ namespace DC4._0Backend.Models
 
         public  string  ForceAddMealBreak  { get; set; }
 
+        public string FullName { get; set; }
+
+        public string EmployeeCategory { get; set; }
+
+
 
 
 

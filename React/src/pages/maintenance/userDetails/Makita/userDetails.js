@@ -266,6 +266,7 @@ const UserDetails =  () => {
     const [showPayrollModal, setShowPayrollModal] = useState(false);
     const [showUpdateRoster, setUpdateRosterModal] = useState(false); 
     const [showuploadUsersModal, setshowuploadUsersModal] = useState(false); 
+    const [showleavesModal, setshowleavesModal] = useState(false); 
     const [showuploadUsersresultModal, setshowuploadUsersresultModal] = useState(false); 
 
 
@@ -845,8 +846,12 @@ const UserDetails =  () => {
                'EmployeeCategory': leaveInput.EmployeeCategory
         })
         
+
+        setshowleavesModal(true);
+
         api.post('Maintenance/UserInfo/AssignLeave', body).then( 
             res => {
+                setshowleavesModal(false);
                 let response = res.data;
              
                 if (response.includes('Records Approved')) 
@@ -865,6 +870,7 @@ const UserDetails =  () => {
                 setShowLeaveModal(true);
             }
         ).catch(
+            
             err => { // TODO: Error handling
                 console.log(err);
             }
@@ -1463,6 +1469,21 @@ const UserDetails =  () => {
                           <div className='modal-item'>
                             
                             <h4>Excel Users are getting uploaded into DC Metrics. Please wait for a couple for minutes</h4>
+                         
+                          </div>
+                          <div className='modal-item'>
+                              <MoonLoader  color="blue" loading="true"   size={50}></MoonLoader>
+                         
+                          </div>
+               
+                          </div>
+                         </div> 
+                         <div>
+                         <div className={showleavesModal ? 'modal-background' : null} ></div>
+                          <div className={showleavesModal ? 'modal-container modal-container--display' : 'modal-container--hide'}>
+                          <div className='modal-item'>
+                            
+                            <h4>Please wait for a couple for minutes</h4>
                          
                           </div>
                           <div className='modal-item'>

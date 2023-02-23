@@ -203,12 +203,18 @@ const TimeAttendanceGrid = () => {
     const updateTableHandler =(params)=>
     {
 
-        params.data.UpdateBy = user;
+     //   params.data.UpdateBy = user;
         setrowparams(params);
         setShowModal(true);
         setModalMode(2);
         setInput(params.data);
         setuserDate(dateToInput(params.data.StartDate));
+        if (!(params.data.EndDate))
+        {
+            params.data.EndDate = params.data.StartDate;
+        }
+
+
         setuserendDate(dateToInput(params.data.EndDate))
         setOriginalInput(params.data);
         setOriginalInputobj(params.data);
@@ -284,6 +290,16 @@ const TimeAttendanceGrid = () => {
         input.EndDate = inputToDate(userendDate);
         //check if log on is after log off
 
+      if (input.EndTime === '')
+      {
+        var r = window.confirm("Leaving End Time blank?","Yes","No");
+        if (r!= true)
+        {
+        setLoadModal(false);
+        return;
+        }
+      }
+
         if (input.EndDate < input.StartDate)
         {
             setModalMessageError('Error: Start Date cannot be greater than End Date !');
@@ -335,24 +351,44 @@ const TimeAttendanceGrid = () => {
          
             input.StartDate = inputToDate(userDate);
             input.EndDate = inputToDate(userendDate);
+            input.UpdateBy = user;
     
+            
             // if (!checkChange(originalInputobj, input)) {
             //     setModalMessageError('Error: No changes have been made in the Entry.');
             //     setLoadModal(false);
             //     return;
             // }
-    
-            if (dateToDateObj(input.EndDate) < dateToDateObj(input.StartDate)) {
-                setModalMessageError(`Error: Start date after end date. Please set end date after start date.`);
-                setLoadModal(false);
-                return;
-            }
-            //check if log on is after log off
-            if (isStartDateTimeSmallerThanEndDateTime(input.StartDate, input.StartTime, input.EndDate, input.EndTime) === false) {
-                setModalMessageError('Error: Log on time cannot be greater than log off time!');
-                setLoadModal(false);
-                return;
-            }
+
+            
+                          if (input.EndTime === '')
+                              {
+                                 var r = window.confirm("Leaving End Time blank?","Yes","No");
+                                 if (r!= true)
+                                   {
+                                      setLoadModal(false);
+                                      return;
+                                    }
+                                 }
+
+                                 if (input.EndDate < input.StartDate)
+                                 {
+                                     setModalMessageError('Error: Start Date cannot be greater than End Date !');
+                                     setLoadModal(false);
+                                     return;
+                         
+                                 }
+                         
+                                  
+                                  if (input.EndTime!= '')
+                                  {
+                         
+                                    if (isStartDateTimeSmallerThanEndDateTime(input.StartDate, input.StartTime, input.EndDate, input.EndTime) === false) {
+                                     setModalMessageError('Error: Log on time cannot be greater than log off time!');
+                                     setLoadModal(false);
+                                     return;
+                                    }
+                                   }
     
             let body = new URLSearchParams(input);
             await api.post('/Maintenance/TimeAndAttendence/UpdateTimeandAttendenceEntry_Makita', body).then(
@@ -365,6 +401,7 @@ const TimeAttendanceGrid = () => {
                         var rowNode = gridApi.getRowNode(input.ID);
                         var newData = input
                          rowNode.setData(newData);
+                         getTable(inputToDate(startDate), inputToDate(endDate));
                       
                     }
                     else if (response === 'Please update this record through the LeaveDetails') {
@@ -789,8 +826,8 @@ const TimeAttendanceGrid = () => {
 
          <AgGridColumn headerName ="Action"  lockPosition = {true} cellRendererFramework = {ActionRowButton}   colId="Action"  editable = {false} filter={false} />
          <AgGridColumn headerName ="User ID" field="UserID"  editable={false} />
-         <AgGridColumn  headerName ="First Name" field="FirstName" editable={false} />
-         <AgGridColumn  headerName ="Surname" field="SurName" editable={false} />
+         <AgGridColumn  headerName ="Name" field="FullName" editable={false} />
+         <AgGridColumn  headerName ="Employee Category" field="EmployeeCategory" editable={false} />
          <AgGridColumn  headerName ="Start Date"field="StartDate"    editable={true}  filter = {false} cellEditor= "dateEditor"/>
          <AgGridColumn  headerName ="Start Time"field="StartTime"  cellEditor= "timeeditor"  filter= {false} />
          <AgGridColumn  headerName ="End Date"field="EndDate"  cellEditor= "dateEditor"   filter = {false} />
@@ -830,10 +867,10 @@ const TimeAttendanceGrid = () => {
                             <TextField name='ShiftStart' label='Shift Start' value={input.ShiftStart} onChange={handleInputEvent} type='time' ></TextField>
                             <div className='modal-item'>
                             <label className='label label--position' >End Date</label>
-                            <input  className="modal-fields modal-fields--outline modal-fields--date" type="date" value ={userendDate} onChange={changeendDate} required = {modalMode === 1 ? null : true} ></input>
+                            <input  className="modal-fields modal-fields--outline modal-fields--date" type="date" value ={userendDate} onChange={changeendDate}  ></input>
                             </div>
                     
-                            <TextField name='EndTime' label='End Time' value={input.EndTime} onChange={handleInputEvent} type='time' required = {modalMode === 1 ? null : true}></TextField>
+                            <TextField name='EndTime' label='End Time' value={input.EndTime} onChange={handleInputEvent} type='time' ></TextField>
                             
                             <TextField name='UpdateBy' label='Update By' value={input.UpdateBy}  disabled required></TextField>
                             <TextField name='ShiftEnd' label='Shift End' value={input.ShiftEnd} onChange={handleInputEvent} type='time' ></TextField>

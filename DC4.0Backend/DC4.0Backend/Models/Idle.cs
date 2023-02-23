@@ -110,6 +110,8 @@ namespace DC4._0Backend.Models
 
         public string StartDate { get; set; }
 
+        public int duration { get; set; }
+
 
     }
 }

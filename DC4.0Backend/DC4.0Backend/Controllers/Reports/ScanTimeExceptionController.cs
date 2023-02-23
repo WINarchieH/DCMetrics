@@ -58,7 +58,7 @@ namespace DC4._0Backend.Controllers.Reports
                     obj.EmployeeID = ds.Tables[0].Rows[i]["UserID"].ToString();
                     obj.FullName = ds.Tables[0].Rows[i]["UserName"].ToString();
                     obj.TeamManager = ds.Tables[0].Rows[i]["TeamManager"].ToString();
-                    obj.ShiftCode = ds.Tables[0].Rows[i]["shiftCode"].ToString();
+                    obj.ShiftCode = ds.Tables[0].Rows[i]["ShiftCode"].ToString();
                     obj.ShiftType = ds.Tables[0].Rows[i]["ShiftType"].ToString();
                     obj.ProductCode = ds.Tables[0].Rows[i]["ProductCode"].ToString();
                     obj.TimeGap = Convert.ToInt32(ds.Tables[0].Rows[i]["TimeGap"]);
@@ -69,6 +69,8 @@ namespace DC4._0Backend.Controllers.Reports
                     obj.EndTime = Convert.ToDateTime(ds.Tables[0].Rows[i]["EndDatetime"].ToString()).ToString("HH:mm:ss");
                     obj.PickQuantity = Convert.ToInt32(ds.Tables[0].Rows[i]["PickQuantity"]);
                     obj.UserRole = ds.Tables[0].Rows[i]["UserRole"].ToString();
+                    obj.FromLocation = ds.Tables[0].Rows[i]["FromLocation"].ToString();
+                    obj.ToLocation = ds.Tables[0].Rows[i]["ToLocation"].ToString();
 
 
                     reports.Add(obj);

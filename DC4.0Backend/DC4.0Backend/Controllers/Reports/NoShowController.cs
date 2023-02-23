@@ -50,8 +50,9 @@ namespace DC4._0Backend.Controllers.Reports
                     NoShow obj = new NoShow();
                     obj.EmployeeID = ds.Tables[0].Rows[i]["UserID"].ToString();
                     obj.FirstName = ds.Tables[0].Rows[i]["FirstName"].ToString();
+
                     obj.Surname = ds.Tables[0].Rows[i]["Surname"].ToString();
-                    obj.EmployeeName = obj.FirstName + obj.Surname;
+                    obj.EmployeeName = obj.FirstName +" " +obj.Surname;
                     obj.TeamManager = ds.Tables[0].Rows[i]["TeamManager"].ToString();
                     obj.Shift = ds.Tables[0].Rows[i]["ShiftCode"].ToString();
                     obj.ShiftType = ds.Tables[0].Rows[i]["ShiftType"].ToString();
@@ -66,6 +67,7 @@ namespace DC4._0Backend.Controllers.Reports
                     obj.ActualStart = ds.Tables[0].Rows[i]["ActualStart"].ToString();
                     obj.Status = ds.Tables[0].Rows[i]["Status"].ToString();
                     obj.UserRole = ds.Tables[0].Rows[i]["UserRole"].ToString();
+                    obj.EmployeeCategory = ds.Tables[0].Rows[i]["EmployeeCategory"].ToString();
                     reports.Add(obj);
 
                 }

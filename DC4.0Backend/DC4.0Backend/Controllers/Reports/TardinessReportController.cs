@@ -56,8 +56,10 @@ namespace DC4._0Backend.Controllers.Reports
                     obj.ExpectedStart = ds.Tables[0].Rows[i]["ExpectedStart"].ToString();
                     obj.ActualEnd = ds.Tables[0].Rows[i]["ActualEnd"].ToString();
                     obj.ExpectedEnd = ds.Tables[0].Rows[i]["ExpectedEnd"].ToString();
+                    obj.duration = Convert.ToInt16(ds.Tables[0].Rows[i]["TotalDuration"]);
                     obj.totalLosttime = Convert.ToInt16(ds.Tables[0].Rows[i]["StartLostTime"]) + Convert.ToInt16(ds.Tables[0].Rows[i]["EndLostTime"]);
                     obj.totalTolerance = Convert.ToInt16(ds.Tables[0].Rows[i]["StartTolerance"]) + Convert.ToInt16(ds.Tables[0].Rows[i]["EndTolerance"]);
+
                     reports.Add(obj);
 
                 }

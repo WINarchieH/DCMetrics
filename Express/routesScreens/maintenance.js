@@ -2699,4 +2699,61 @@ router.post('/TimeAndAttendence/UpdateTimeandAttendenceEntry_Makita', (req, res)
 
 
 
+router.post('/UserRole/GetAllRoles', (req, res) => {
+    let data = req.body;
+    api.dc4.post('/Roles/GetAllRoles', data).then(
+        response => {
+            let output = response.data;
+
+            res.send(output);
+
+        }).catch(
+            err => {
+                res.status('503').send({
+                    message: 'Failed to connect to server.'
+                });
+            }
+        );
+});
+
+
+
+router.post('/UserRole/InsertNewUserRole', (req, res) => {
+    let data = req.body;
+    api.dc4.post('/Roles/InsertNewUserRole', data).then(
+        response => {
+            let output = response.data;
+
+            res.send(output);
+
+        }).catch(
+            err => {
+                res.status('503').send({
+                    message: 'Failed to connect to server.'
+                });
+            }
+        );
+});
+
+
+
+router.post('/UserRole/DeleteUserRole', (req, res) => {
+    let data = req.body;
+    api.dc4.post('/Roles/DeleteUserRole', data).then(
+        response => {
+            let output = response.data;
+
+            res.send(output);
+
+        }).catch(
+            err => {
+                res.status('503').send({
+                    message: 'Failed to connect to server.'
+                });
+            }
+        );
+});
+
+
+
 module.exports = router;

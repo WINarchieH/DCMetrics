@@ -61,6 +61,7 @@ const Tardiness = () => {
         { Header: 'Actual Start', accessor: 'ActualStart', modalType: 'textbox' },
         { Header: 'Expected End', accessor: 'ExpectedEnd', modalType: 'textbox' },
         { Header: 'Actual End', accessor: 'ActualEnd', modalType: 'textbox' },
+        { Header: 'Duration', accessor: 'duration', modalType: 'textbox' },
         { Header: 'Lost time', accessor: 'totalLosttime', modalType: 'textbox' },
         { Header: 'Tolerance', accessor: 'totalTolerance', modalType: 'textbox' },   
         { Header: 'Shift', accessor: 'ShiftCode', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown' },

@@ -224,6 +224,7 @@ import MakitaTimeandAttendence from '../../pages/timeAndAttendance/timeAttendanc
 import MakitaUserTaskSummary from  '../../pages/reports/MakitaUserTaskSummaryReport/userTaskSummaryPrint';
 import CostPerLine from '../../pages/reports/costPerLine/costPerLine';
 import UserInformation from '../../pages/maintenance/userDetails/Makita/userInformation';
+import UserRoleScreen from '../../pages/maintenance/userRole/userRole';
 
 
 
@@ -278,7 +279,7 @@ const Routes = () => {
         <PrivateRoute path='/Maintenance/Errors' name='Errors' exact component={errors}></PrivateRoute>
         <PrivateRoute path='/Maintenance/UsergroupManagement' name='User Group Management' exact component={UserGroupManagement}></PrivateRoute>
         <PrivateRoute path='/Maintenance/UserInformation' name='User Information' exact component={UserInformation}></PrivateRoute>
-
+        <PrivateRoute path='/Maintenance/UserRole' name='User Role' exact component={UserRoleScreen}></PrivateRoute>
         {/* User Management Menu */}
         <PrivateRoute path='/UserManagement/UserOnboarding' name='User Onboarding' exact component={UserOnboarding}></PrivateRoute>
         <PrivateRoute path='/UserManagement/UserDiary' name='User Diary' exact component={UserDiary}></PrivateRoute>

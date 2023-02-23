@@ -30,8 +30,8 @@ const NoShowReport = () => {
 
     const tableColumns = [
         { Header: 'Employee ID', accessor: 'EmployeeID', modalType: 'textbox' },
-        { Header: 'First Name', accessor: 'FirstName', modalType: 'textbox' },
-        { Header: 'Surname', accessor: 'Surname', modalType: 'textbox' },
+        { Header: 'Employee Name', accessor: 'EmployeeName', modalType: 'textbox' },
+        {  Header: 'Employee Category', accessor: 'EmployeeCategory', Filter: SelectMultipleFilter, filter: 'contains', modalType: 'dropdown' },
         { Header: 'Start Date', accessor: 'Date', Filter: SelectDateRange, filter: 'date', Cell: DateCell, FilterValue: dateRange, SetFilterValues: setDateRange, setExtra: setDateChangeIndicator },
         { Header: 'Expected Start', accessor: 'ExpectedStart', modalType: 'textbox' },
         { Header: 'Actual Start', accessor: 'ActualStart', modalType: 'textbox' },
