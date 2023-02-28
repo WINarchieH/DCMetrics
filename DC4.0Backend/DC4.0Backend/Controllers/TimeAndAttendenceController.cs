@@ -1040,7 +1040,7 @@ namespace DC4._0Backend.Controllers
 
                 sSql_Audit = " INSERT INTO BundyClock_Audit (UserID, ShiftCode,DeptCode,StartDateTime,EndDateTime,MealAllowance,ReasonForUpdate,UpdateBy " +
           " , AddDate, CalledBack,OverTimeException,Leave,Approve,Decline,AllowOTatStart,AllowOTatEnd,ForceAddMealBreak, AfternoonAllowance,BeforeAfter,UpdatedBy_Audit) " +
-            " SELECT UserID, ShiftCode,DeptCode,StartDateTime,EndDateTime,MealAllowance,ReasonForUpdate,UpdateBy " +
+            " SELECT UserID, ShiftCode,DeptCode,StartDateTime,EndDateTime,MealAllowance,"+user.ReasonForUpdate+",UpdateBy " +
              " , GETDATE(), CalledBack,OverTimeException,Leave,Approve,Decline,AllowOTatStart,AllowOTatEnd, ForceAddMealBreak, AfternoonAllowance " +
            " ,'" + BeforeAfter + "', (Select FirstName + ' '+ SurName From [DCM_Access].[dbo].[UserLoginPermission] Where UserName = '" + user.UpdateBy + "' )" +
              " FROM BundyClock " +

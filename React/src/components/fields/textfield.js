@@ -7,7 +7,8 @@ const patterns = { // eslint-disable-next-line
     default: '^[\\w]+([\\s\\-]*[\\w.]+)*$',   // Start with any character/digit, end with character/digit/.
     password: '^[A-Za-z0-9]+$', // Character/digits at least 1
     number: '^[0-9]+$', // Numbers only (must end in non-zero number)
-    name: '^[A-Za-z,.\'-]+'
+    name: '^[A-Za-z,.\'-]+',
+    role :'/^(?!\d+$)(?:[a-zA-Z0-9][a-zA-Z0-9 @&$]*)?$/gm' // add white spaces and special characters in the text
 }
 
 export default  function TextField(props) {

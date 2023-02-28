@@ -85,10 +85,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/09/2022 09:20:49</publishTime>
     </File>
     <File Include="bin/DC4.0Backend.dll">
-      <publishTime>02/19/2023 19:06:15</publishTime>
+      <publishTime>02/26/2023 10:00:43</publishTime>
     </File>
     <File Include="bin/DC4.0Backend.pdb">
-      <publishTime>02/19/2023 19:06:15</publishTime>
+      <publishTime>02/26/2023 10:00:43</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>12/09/2022 09:20:51</publishTime>

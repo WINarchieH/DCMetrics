@@ -154,10 +154,11 @@ const ReasonCode =  () => {
     // API Handlers
     const addHandler = async () => {
         input.DCMUser = user;
+        input.UserRole = input.UserRole.trimStart().trimEnd();
         let body = new URLSearchParams(input);
         await api.post('/Maintenance/UserRole/InsertNewUserRole', body).then(
             res => {
-                console.log(res.data);
+              
                 let response = res.data;
                 if (response === 'New UserRole Added into the DCMetrics') {
                     getUserRole();
@@ -168,9 +169,11 @@ const ReasonCode =  () => {
                 }
                 else if (response === 'UserRole already exist in the DC Metrics System') {
                     setModalMessageError(`Error: User Role already exists.`);
+                    setLoadModal(false);
                 }
                 else {
                     setModalMessageError(`Error: Failed to connect to server. Please try again.`);
+                    setLoadModal(false);
                 }
               
             }
@@ -402,7 +405,7 @@ const ReasonCode =  () => {
      </div>
                 <Modal title={modalTitle} buttonName={modalButtonName} onSubmit={onSubmit} showModal={showModal} 
                     setShowModal={setShowModal} loadModal={loadModal} message={modalMessage} unrestrictedwidth = {true} messageError={modalMessageError}>
-                     <TextField name='UserRole' label='User Role' value={input.UserRole} onChange={handleInputEvent} required restrictions='default'></TextField>
+                     <TextField name='UserRole' label='User Role' value={input.UserRole} onChange={handleInputEvent} required  type ="text"></TextField>
                      
                  </Modal>
      <div>
