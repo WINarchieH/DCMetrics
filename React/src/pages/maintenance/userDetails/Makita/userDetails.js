@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import { useSelector } from 'react-redux';
 import api from '../../../../components/api/api';
 import {DateCell} from '../../../../components/table/tableCells';
@@ -269,6 +269,8 @@ const UserDetails =  () => {
     const [showleavesModal, setshowleavesModal] = useState(false); 
     const [showuploadUsersresultModal, setshowuploadUsersresultModal] = useState(false); 
 
+    
+
 
 
     
@@ -293,6 +295,29 @@ const UserDetails =  () => {
    ];
 
 
+   const PayrollUploadcolumns =
+   [
+{
+    'UserID (Mandatory)':"TestUserA",
+    'Salary (Mandatory)':0,
+    'OrdinaryTime': 0,
+    'DoubleTime': 0,
+    'Salary Effective Date':'' ,
+    'Salary Ineffective Date':'',
+    'Leading Hand':'Enabled',
+    'Leading Hand Rate':0,
+    'Leading Hand Effective Date':'',
+    'Leading Hand Ineffective Date':'',
+    'Afternoon Allowance':'Enabled',
+    'Afternoon Allowance Effective Date':'',
+    'Afternoon Allwance Ineffective Date':'',
+}
+   ];
+
+
+   
+
+
     // Excel Download Handler
 
     const exportToCSV = () => {
@@ -304,6 +329,16 @@ const UserDetails =  () => {
         const data = new Blob([excelBuffer], { type: fileType });
         FileSaver.saveAs(data, "UploadUsers_Template" + fileExtension);
       };
+
+      //Payroll Upload Template Handler
+      const PayrollexportToCSV = () => {
+        const ws = XLSX.utils.json_to_sheet(PayrollUploadcolumns);
+        const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+        const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+        const data = new Blob([excelBuffer], { type: fileType });
+        FileSaver.saveAs(data, "UploadPayroll_Template" + fileExtension);
+      };
+
 
      const handleDrop = () => {
         // let fileList = this.state.files
@@ -350,6 +385,8 @@ const UserDetails =  () => {
 
 
     };
+
+
 
     const payrollChangesButtonHandler = async (data) => {
 
@@ -404,9 +441,7 @@ const UserDetails =  () => {
     };
 
 
-
-
-
+    
     const conditionalActions = (row) => {
 
 
@@ -1169,6 +1204,27 @@ const UserDetails =  () => {
           }
         },
       };
+        // Call back methods for Default Payroll values
+    const UpdateOrdinaryTime = useCallback(() => {
+        setpayrollchangesinputName('OrdinaryTime', parseFloat(payrollchangesinput.Salary/1950).toFixed(3) );
+    }, [setpayrollchangesinputName, payrollchangesinput.Salary]);
+
+    const UpdateTimeAndAHalfTime = useCallback(() => {
+        setpayrollchangesinputName('TimeAndHalf', parseFloat(payrollchangesinput.OrdinaryTime*1.5).toFixed(3) );
+    }, [setpayrollchangesinputName, payrollchangesinput.OrdinaryTime]);
+
+
+    const UpdateDoubleTime = useCallback(() => {
+        setpayrollchangesinputName('DoubleTime', parseFloat((payrollchangesinput.Salary/1950)*2).toFixed(3) );
+    }, [setpayrollchangesinputName, payrollchangesinput.TimeAndHalf]);
+
+
+    useEffect(UpdateOrdinaryTime, [payrollchangesinput.Salary]);
+
+     useEffect(UpdateTimeAndAHalfTime, [payrollchangesinput.OrdinaryTime]);
+
+     useEffect(UpdateDoubleTime, [payrollchangesinput.TimeAndHalf]);
+     
       
 
     useEffect(() => { // Updates Modal title and button name
@@ -1399,9 +1455,9 @@ const UserDetails =  () => {
                             <label className='label label--position'>Salary</label>
                             </div>
                             <TextField min='0' type="number" name='Salary' label='Annual' value={payrollchangesinput.Salary} onChange={handlePayrollchangesInputEvent}  restrictions='number' required></TextField>
-                            <TextField type="number" name='OrdinaryTime' label='Single Time' value={payrollchangesinput.OrdinaryTime} onChange={handlePayrollchangesInputEvent} restrictions='number' required></TextField>
-                            <TextField type="number" name='TimeAndHalf' label='Time And Half' value={payrollchangesinput.TimeAndHalf} onChange={handlePayrollchangesInputEvent}  restrictions='number' required></TextField>
-                            <TextField type="number" name='DoubleTime' label='Double Time' value={payrollchangesinput.DoubleTime} onChange={handlePayrollchangesInputEvent} restrictions='number' required></TextField>
+                            <TextField type="number" name='OrdinaryTime' label='Single Time' value={payrollchangesinput.OrdinaryTime} onChange={handlePayrollchangesInputEvent}  restrictions='number' disabled ></TextField>
+                            <TextField type="number" name='TimeAndHalf' label='Time And Half' value={payrollchangesinput.TimeAndHalf} onChange={handlePayrollchangesInputEvent}  restrictions='number' disabled ></TextField>
+                            <TextField type="number" name='DoubleTime' label='Double Time' value={payrollchangesinput.DoubleTime} onChange={handlePayrollchangesInputEvent} restrictions='number' disabled ></TextField>
                             <div></div>
                             <div className='modal-item'>
                             <label className='label label--position' >Effective From</label>
@@ -1444,7 +1500,7 @@ const UserDetails =  () => {
                             <input  className="modal-fields modal-fields--outline modal-fields--date" type="date" value = {afternoonToDate} onChange={ChangeAfternoonToDate} ></input>
                             </div>
                             </div>
-                           
+
                         </Modal>
                         {/* Model for updating Roster */}
                         <Modal title=' Action Successful' buttonName='Update Roster'  onSubmit={updateUserRoster}  loadModal={userRosterloadModal} message={updateRosterModalMessage} messageError={UpdateRosterMessageError}  showModal={showUpdateRoster} setShowModal={setUpdateRosterModal}>

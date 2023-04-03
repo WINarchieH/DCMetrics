@@ -395,13 +395,14 @@ const TimeAttendanceGrid = () => {
                 res => {
                     let response = res.data;
     
-                    if (response === 'Time and Attendence Entry Updated') {
+                    if (response === 'Time and Attendence Entry Updated')
+                    {
                         setModalMessage(`Entry updated.`);
                         // Update table on the frontend
                         var rowNode = gridApi.getRowNode(input.ID);
                         var newData = input
-                         rowNode.setData(newData);
-                         getTable(inputToDate(startDate), inputToDate(endDate));
+                        rowNode.setData(newData);
+                      
                       
                     }
                     else if (response === 'Please update this record through the LeaveDetails') {
@@ -439,7 +440,8 @@ const TimeAttendanceGrid = () => {
             ShiftEnd: rowData.ShiftEnd
         });
 
-        if (rowData.ShiftStart === '' || rowData.ShiftEnd === '') {
+        if (rowData.ShiftStart === '' || rowData.ShiftEnd === '') 
+        {
             setModalMessageError('Roster Start and End Times need to be selected');
         }
         else if (isStartDateTimeSmallerThanEndDateTime('2020-11-26', rowData.ShiftStart, '2020-11-26', rowData.ShiftEnd) === false) {

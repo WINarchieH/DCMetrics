@@ -25,7 +25,7 @@ const Toggle = ({name, label, checked, onChange, }) => {
                                 checked={checked || false}
                                 onChange={e => onChange(!checked)}
                                 name={name}
-                                color="primary"
+                                color ="Primary"
                              
                             />
                         } />

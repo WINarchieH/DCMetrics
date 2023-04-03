@@ -132,12 +132,8 @@ const Rework = () => {
             const startDateObj = inputToDateObj(dateRange[0]);
             const endDateObj = inputToDateObj(dateRange[1]);
             if (startDateObj < currentDateRange.current[0] || endDateObj > currentDateRange.current[1]) {
-                
-                //reseting the filter array after a date change
-                settype([]);
                 setemployeeID([]);
                 setManager([]);
-
                 getTable(inputToDate(dateRange[0]), inputToDate(dateRange[1]));
                 currentDateRange.current = [startDateObj, endDateObj];
             }
@@ -151,7 +147,7 @@ const Rework = () => {
         today = dateObjToDate(today);
 
         getTable(today, today);
-       // setDateRange([dateToInput(today), dateToInput(today)]); // Store current date range
+        setDateRange([dateToInput(today), dateToInput(today)]); // Store current date range
     }, []);
 
     return (

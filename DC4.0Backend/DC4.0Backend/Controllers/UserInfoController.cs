@@ -102,7 +102,7 @@ namespace DC4._0Backend.Controllers
             sSQL = "Select UserID 'User Name' ,FirstName 'First Name',Surname  ,Sex, REPLACE(CONVERT(varchar, DateJoining, 103),' ',' / ') 'Date Joining'," +
                   "REPLACE(CONVERT(varchar, DateLeaving, 103),' ',' / ')  'Date Leaving', EmployeeId,IsNull(EmployeeCategory,'') 'Emp Category', ShiftCode,isnull(TeamManager,'') 'Team Manager', Status,IsNull(Agency,'')'Agency'," +
                   "IsNull(Level,'')'Level', IsNull(FirstAid,'')'FirstAid' , IsNull(Role,'') 'Role', IsNull(Grade,'') 'Grade' , IsNull(PayBundyTime,'')'PayBundyTime', IsNull(DeptCode,'') 'Dept Code', " +
-                  " IsNull(PayCode,'') 'Pay Code', IsNull(PartTime,'') 'PartTime',isManager from userinfo Where 1=1 and Status = 'A' Order By LTRIM(FirstName)";
+                  " IsNull(PayCode,'') 'Pay Code', IsNull(PartTime,'') 'PartTime',isManager from userinfo Where 1=1  Order By Status, LTRIM(FirstName) ";
 
             try
             {
